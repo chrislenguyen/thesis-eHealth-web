@@ -1,0 +1,12 @@
+{
+	"role_setting": [
+		{
+			"role": "2",
+			"screen": "home"
+		},
+		{
+			"role": "3",
+			"screen": "manage"
+		}
+	]
+}

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+{{>head}}
+
+<body>
+
+    <div class="row" style="padding-top: 20px;">
+        <div class="col-11"> </div>
+        <button style="right: 10px;" type="button" name="" id="logoutBtn" class="btn btn-dark"> Log Out</button>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center align-items-center h-100">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons" style="padding-top: 100px;">
+                <label class="btn btn-outline-dark">
+                    <input type="radio" name="options" id="option1" value="1"> Add Doctor
+                </label>
+                <label class="btn btn-outline-dark">
+                    <input type="radio" name="options" id="option2" value="2"> Add Device
+                </label>
+                <label class="btn btn-outline-dark">
+                    <input type="radio" name="options" id="option3" value="3"> Add Hospital
+                </label>
+            </div>
+        </div>
+
+
+        <form id="addInpatientForm" style="display: block;" class="form-group p-5 mb-2 bg-white text-dark">
+            <div class="row justify-content-md-center">
+                <label style="font-size: 25px;">Add Doctor</label>
+            </div>
+            <br>
+
+            <div class="row justify-content-md-center form-group">
+                <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true" aria-lable="With textarea"
+                    style="border: none; box-shadow: none; resize: none; background-color: white;">First name</textarea>
+                <input class="col col-10" id="fName" class="form-control" type="text">
+            </div>
+
+
+            <div class="row justify-content-md-center form-group">
+                <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true" aria-lable="With textarea"
+                    style="border: none; box-shadow: none; resize: none; background-color: white;">Last name</textarea>
+                <input class="col col-10" id="lName" class="form-control" type="text">
+            </div>
+
+
+            <div class="row form-group">
+                <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true" aria-lable="With textarea"
+                    style="border: none; box-shadow: none; resize: none; background-color: white;">Date of birth</textarea>
+                <input class="col col-3" type="date" id="birthDate">
+
+                <div class="col col-1"></div>
+
+                <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true" aria-lable="With textarea"
+                    style="border: none; box-shadow: none; resize: none; background-color: white; text-align: right;">Gender</textarea>
+                <select class="col col-2 custom-select" name="gender" id="gender" required>
+                    <option value="m">Male</option>
+                    <option value="f">Female</option>
+                </select>
+            </div>
+
+
+            <div class="row justify-content-md-center form-group">
+                <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true" aria-lable="With textarea"
+                    style="border: none; box-shadow: none; resize: none; background-color: white;">Address</textarea>
+                <input class="col col-10" id="addr" class="form-control" type="text">
+            </div>
+
+
+            <div class="row justify-content-md-center form-group">
+                <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true" aria-lable="With textarea"
+                    style="border: none; box-shadow: none; resize: none; background-color: white;">Phone number</textarea>
+                <input class="col col-3" id="phone" class="form-control" type="text">
+
+                <div class="col col-1"></div>
+
+                <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true" aria-lable="With textarea"
+                    style="border: none; box-shadow: none; resize: none; background-color: white;">Specialties</textarea>
+                <input class="col col-3" id="spec" class="form-control" type="text">
+
+                <div class="col col-1"></div>
+            </div>
+
+            <div class="row justify-content-md-center form-group">
+                <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true" aria-lable="With textarea"
+                    style="border: none; box-shadow: none; resize: none; background-color: white;">CMND</textarea>
+                <input class="col col-3" id="ssn" class="form-control" type="text">
+
+                <div class="col col-1"></div>
+
+                <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true" aria-lable="With textarea"
+                    style="border: none; box-shadow: none; resize: none; background-color: white; text-align: left;">Year_Graduated</textarea>
+                <input class="col col-3" type="date" id="gradTime">
+
+                <div class="col col-1"></div>
+            </div>
+
+            <div class="row justify-content-md-center form-group">
+                <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true" aria-lable="With textarea"
+                    style="border: none; box-shadow: none; resize: none; background-color: white;">Username</textarea>
+                <input class="col col-3" id="username" class="form-control" type="text">
+
+                <div class="col col-1"></div>
+
+                <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true" aria-lable="With textarea"
+                    style="border: none; box-shadow: none; resize: none; background-color: white;">Password</textarea>
+                <input class="col col-3" id="password" class="form-control" type="password">
+
+                <div class="col col-1"></div>
+            </div>
+
+            <div class="row justify-content-md-center form-group">
+                <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true" aria-lable="With textarea"
+                    style="border: none; box-shadow: none; resize: none; background-color: white;">Email</textarea>
+                <input class="col col-10" id="email" class="form-control" type="text">
+            </div>
+
+            <div class="row form-group">
+                <div class="col col-1"></div>
+                <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true" aria-lable="With textarea"
+                    style="border: none; box-shadow: none; resize: none; background-color: white; text-align: right;">Hospital</textarea>
+                <select class="col col-2 custom-select" name="hosList" id="hos" required>
+                    <option></option>
+                </select>
+
+                <div class="col col-1"></div>
+
+                <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true" aria-lable="With textarea"
+                    style="border: none; box-shadow: none; resize: none; background-color: white; text-align: right;">Department</textarea>
+                <select class="col col-2 custom-select" name="depList" id="dep" required>
+                    <option></option>
+                </select>
+            </div>
+
+            <div class="row justify-content-md-center">
+                <button id="submitBtn" type="button" class="btn btn-primary btn-block"
+                    style="width:150px; text-align:center;">Add</button>
+            </div>
+    </div>
+</body>
+<script src="./js/add_doctor.js"></script>
+<script src="./js/logout.js"></script>
+
+</html>
