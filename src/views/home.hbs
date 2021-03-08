@@ -5,35 +5,92 @@
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-3 custom-border">
-                Left
-
-                <div class="row align-items-center custom-border" style="padding-left: 30px;">
-                    <i class="fas fa-hospital-user" aria-hidden="true" style="font-size: 50px;"></i>
-                    <label style="padding-left: 10px; margin: 0;">KHUONG LNA</label>
-                    <div class="col-4"> </div>
+            <div class="col-3">
+                <div class="row align-items-center border" style="padding-left: 10px; padding-right: 10px;">
+                    <i class="fas fa-hospital-user col-2" aria-hidden="true" style="font-size: 50px;"></i>
+                    <label class="col" style="padding-left: 10px; margin: 0; font-size: 40px;">Khuong LNA</label>
                     <button style="right: 10px;" type="button" name="" id="logoutBtn" class="btn btn-dark"> Log
                         Out</button>
                 </div>
-                <div class="row custom-border align-items-center">
-                    <div class="col-4">
-                        <p style="margin: auto;">A1</p>
-                    </div>
-                    <div class="col-4">
+                <div class="row align-items-center" style="text-align: center;">
+                    <textarea class="col text-dark" rows="1" readOnly="true" aria-lable="With textarea"
+                        style="overflow: hidden; border: 1px solid black; box-shadow: none; resize: none; background-color: white; text-align: center; font-size: 30px;">A1</textarea>
+                    <textarea class="col text-dark" rows="1" readOnly="true" aria-lable="With textarea"
+                        style="overflow: hidden; border: 1px solid black; box-shadow: none; resize: none; background-color: white; text-align: center; font-size: 30px;">201</textarea>
+                    {{!-- <div class="col border" style="font-size: 30px;">
                         201
-                    </div>
-                    <div class="col-4">
+                    </div> --}}
+                    <div class="col ">
                         <button type="button" name="" id="" class="btn btn-dark btn-sm">Change
                             Room</button>
                     </div>
                 </div>
                 <div class="row">Patient</div>
             </div>
-            <div class="col-9 p custom-border" style="padding-left: 20px;">
-                Right
-                <div class="row">H Name</div>
-                <div class="row">P Name</div>
-                <div class="row">Exam</div>
+            <div class="col-9">
+                <div class="row border align-items-center">
+                    <div class="col">
+
+                    </div>
+                    <div class="col " style="font-size: 40px; text-align: center;">
+                        Hospital Name
+                    </div>
+                    <div class="col" style="text-align: right;">
+                        31/12/1999
+                    </div>
+                </div>
+
+                <div class="row border align-items-center">
+                    <div class="container-fluid" style="padding-top: 10px; padding-bottom: 10px;">
+                        <div class="row">
+                            <div class="col-1"></div>
+                            <textarea class="col col-2 text-dark" rows="1" readOnly="true" aria-lable="With textarea"
+                                style="border: 1px solid black; box-shadow: none; resize: none; background-color: white; text-align: center;">Le Nguyen An Khuong</textarea>
+                            <div class="col-1"></div>
+                            <textarea class="col col-2 text-dark" rows="1" readOnly="true" aria-lable="With textarea"
+                                style="border: 1px solid black; box-shadow: none; resize: none; background-color: white; text-align: center;">07-10-1999</textarea>
+                            <div class="col-1"></div>
+                            <textarea class="col col-1 text-dark" rows="1" readOnly="true" aria-lable="With textarea"
+                                style="border: 1px solid black; box-shadow: none; resize: none; background-color: white; text-align: center;">Male</textarea>
+                            <div class="col-1"></div>
+                            <textarea class="col col-2 text-dark" rows="1" readOnly="true" aria-lable="With textarea"
+                                style="border: 1px solid black; box-shadow: none; resize: none; background-color: white; text-align: center;">0938537412</textarea>
+                            {{!-- <label class="col-3" style="padding-left: 10px; margin: 0; ">07-10-1999 </label>
+                            <label class="col-3" style="padding-left: 10px; margin: 0; ">Male</label>
+                            <label class="col-3" style="padding-left: 10px; margin: 0; ">0938537412</label> --}}
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <p></p>
+                            </div>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col-1"></div>
+                            <textarea class="col col-7 text-dark" rows="1" readOnly="true" aria-lable="With textarea"
+                                style="border: 1px solid black; overflow: hidden; box-shadow: none; resize: none; background-color: white; text-align: center;">
+                                91 Tran Hung Dao P Cau Kho Quan 1 TP HCM
+                            </textarea>
+                            {{!-- <label class="col-9" style="padding-left: 10px; margin: 0; ">391 Tran Hung Dao P Cau
+                                Kho
+                                Quan 1 TP HCM</label> --}}
+                            <div class="col-1"></div>
+                            <textarea class="col col-2 text-dark" rows="1" readOnly="true" aria-lable="With textarea"
+                                style="border-right: 1px solid black ; overflow: hidden; border-bottom: 1px solid black; box-shadow: none; resize: none; background-color: white; text-align: center;">079099009379
+                            </textarea>
+                            {{!-- <label class="col-3" style="padding-left: 10px; margin: 0; ">079099009379 </label>
+                            --}}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="container-fluid">
+                        <h3>Biometric Parameters</h3>
+                        <div class="row">
+
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
