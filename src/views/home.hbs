@@ -20,8 +20,7 @@
                         style="overflow: hidden; border: 1px solid black; box-shadow: none; resize: none; background-color: white; text-align: center; font-size: 22px;">201</textarea>
 
                     <button type="button" name="" id="" class="btn btn-dark btn-block btn-md col"
-                        style="border-radius: 0;">Change
-                        Room</button>
+                        style="border-radius: 0;">Change Room</button>
                 </div>
                 <div class="row">
                     <div class="container-fluid border" style="verflow-y: auto; min-height: 819px; max-height: 819px;">
@@ -186,8 +185,8 @@
                             <div class="col-5">
 
                             </div>
-                            <button type="button" name="" id=""
-                                class="btn btn-primary btn-dark col-1 align-self-center">Submit</button>
+                            <button type="button" name="" id="" class="btn btn-primary btn-dark col-1 align-self-center"
+                                data-toggle="modal" data-target="#addPatientModal">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -195,11 +194,11 @@
         </div>
     </div>
 
-    <div class="modal fade" id="medModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="medModal" tabindex="-1" aria-labelledby="medModal" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Add Medication</h5>
+                    <h5 class="modal-title" id="medModal">Add Medication</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -216,12 +215,70 @@
                         </div>
                         <div class="form-group">
                             <label for="medDescModal" class="col-form-label">Description:</label>
-                            <input type="text" class="form-control" id="medDescModal">
+                            <input type="text" class="form-control" rows="2" id="medDescModal">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-dismiss="modal" id="btnCancelMedModal">Cancel</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"
+                        id="btnCancelMedModal">Cancel</button>
+                    <button type="button" class="btn btn-dark" id="btnAddMed">Add</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addPatientModal" tabindex="-1" aria-labelledby="addPatientModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addPatientModal">Add Medication</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row form-group">
+                            <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true"
+                                aria-lable="With textarea"
+                                style="border: none; box-shadow: none; resize: none; background-color: white; text-align: left;">First name</textarea>
+                            <input class="col col-9" id="fName" class="form-control" type="text">
+                        </div>
+                        <div class="row form-group">
+                            <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true"
+                                aria-lable="With textarea"
+                                style="border: none; box-shadow: none; resize: none; background-color: white;">Date of birth</textarea>
+                            <input class="col col-3" type="date" id="birthDate">
+
+                            <div class="col col-1"></div>
+
+                            <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true"
+                                aria-lable="With textarea"
+                                style="border: none; box-shadow: none; resize: none; background-color: white; text-align: right;">Gender</textarea>
+                            <select class="col col-2 custom-select" name="gender" id="gender" required>
+                                <option value="m">Male</option>
+                                <option value="f">Female</option>
+                            </select>
+                        </div>
+                        <div class="row form-group">
+                            <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true"
+                                aria-lable="With textarea"
+                                style="border: none; box-shadow: none; resize: none; background-color: white;">CMND</textarea>
+                            <input class="col col-3" id="fName" class="form-control" type="number">
+
+                            <div class="col col-1"></div>
+
+                            <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true"
+                                aria-lable="With textarea"
+                                style="border: none; box-shadow: none; resize: none; background-color: white; text-align: right;">Phone</textarea>
+                            <input class="col col-3" id="fName" class="form-control" type="number">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal"
+                        id="btnCancelMedModal">Cancel</button>
                     <button type="button" class="btn btn-dark" id="btnAddMed">Add</button>
                 </div>
             </div>
