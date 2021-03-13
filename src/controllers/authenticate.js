@@ -1,5 +1,5 @@
 const queryForAuthentication = require("../models/queryForAuthentication.js");
-const role_setting = require("../../settings/setting.json").role_setting
+const role_setting = require("../../setting.json").role_setting
 // console.log(role_setting[0]);
 const authenticate = (loginData, callback) => {
 	var validFlag = false;
