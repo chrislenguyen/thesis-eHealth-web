@@ -8,8 +8,9 @@ const queryForAuthentication = (username, password, callback) => {
 		mysql.escape(username) +
 		"and password = " +
 		mysql.escape(md5(password)) +
-		"for json auto"; // with md5
+		" for json auto"; // with md5
 	// mysql.escape(password);	// no md5
+	// console.log(query);
 	queryForObject(query, (err, data) => {
 		// console.log(data);
 		if (err) {
