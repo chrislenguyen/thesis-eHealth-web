@@ -1,16 +1,20 @@
 const queryForObject = require("./queryForObject");
+const mysql = require("mysql");
 
 const queryForDoctor = (doctorUsername, callback) => {
 	const query =
-		"SELECT (DOCTOR.First_Name + ' ' + DOCTOR.Last_Name) AS NAME, EXAM_ROOM.Building_Code, EXAM_ROOM.Exam_Room_Code, HOSPITAL.Hospital_Name FROM DOCTOR    INNER JOIN EXAM_ROOM    ON DOCTOR.Dep_ID = EXAM_ROOM.Dep_ID AND DOCTOR.Hospital_ID = EXAM_ROOM.Hospital_ID    INNER JOIN HOSPITAL   ON EXAM_ROOM.Hospital_ID = HOSPITAL.Hospital_ID WHERE DOCTOR.USER_NAME = " +
-		doctorUsername;
-    queryForObject(query, (err, data) => {
-        if (err) {
-            callback (err, undefined)
-        } else {
-            callback (undefined, data)
-        }
-    })
+		"SELECT DOCTOR.First_Name as fname, DOCTOR.Last_Name as lname, EXAM_ROOM.Building_Code as buildingCd, EXAM_ROOM.Exam_Room_Code as examRoomCd, HOSPITAL.Hospital_Name as hosName FROM DOCTOR INNER JOIN EXAM_ROOM ON DOCTOR.Dep_ID = EXAM_ROOM.Dep_ID AND DOCTOR.Hospital_ID = EXAM_ROOM.Hospital_ID    INNER JOIN HOSPITAL   ON EXAM_ROOM.Hospital_ID = HOSPITAL.Hospital_ID WHERE DOCTOR.USER_NAME = " +
+		mysql.escape(doctorUsername) +
+		" FOR JSON AUTO";
+        // console.log(query);
+	queryForObject(query, (err, data) => {
+		if (err) {
+			callback(err, undefined);
+		} else {
+			// console.log(data);
+			callback(undefined, data);
+		}
+	});
 };
 
-module.exports = queryForDoctor
+module.exports = queryForDoctor;
