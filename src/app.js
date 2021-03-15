@@ -4,14 +4,10 @@ const path = require("path");
 const hbs = require("hbs");
 const bodyParser = require("body-parser");
 
-// var temp = role_setting.filter(e => {
-// 	return e.role === 2
-// })
-// console.log(temp);
-
 const authenticate = require("./controllers/authenticate");
 const getInitAddDoctor = require("./controllers/getInitAddDoctor");
 const addDoctor = require("./controllers/addDoctor");
+const getInitDoctorInfo = require("./controllers/getInitDoctorInfo");
 
 const app = express();
 
@@ -140,18 +136,27 @@ app.get("/init-add-doctor", (req, res) => {
 });
 
 app.get("/home", (req, res) => {
-	// if (req.session.loggedin) {
-	// 	res.render("home", {
-	// 		title: "App",
-	// 	});
-	// } else {
-	// 	res.render("error", {
-	// 		title: "ERROR",
-	// 	});
-	// }
-
-	res.render("home");
+	if (req.session.loggedin) {
+		res.render("home", {
+			title: "App",
+		});
+	} else {
+		res.render("error", {
+			title: "ERROR",
+		});
+	}
+	// res.render("home");
 });
+
+app.get("/init-doctor-info", (req, res) => {
+	getInitDoctorInfo(req.session.username, (err, data) => {
+		if (err) {
+			res.send(err);
+		} else {
+			res.send(data);
+		}
+	})
+})
 
 app.listen(3000, () => {
 	console.log("Server started, port 3000");
