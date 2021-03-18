@@ -28,7 +28,10 @@ const queryForObject = (queryStatement, callback) => {
 
 		request.on("row", function (columns) { 
 			columns.forEach(e => {
-				callback(undefined, e.value)
+				// console.log(e.value);
+				// console.log(JSON.parse(e.value));
+				var data = JSON.parse(e.value)
+				callback(undefined, data)
 			});
 		})
 	}
