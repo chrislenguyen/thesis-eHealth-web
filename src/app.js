@@ -88,26 +88,18 @@ app.post("/add-doctor-data", (req, res) => {
 	res.send();
 });
 
-app.post("/home-doctor-data", (req, res) => {});
-
 app.get("", (req, res) => {
 	if (req.session.loggedin) {
 		console.log(req.session.role);
 		switch (req.session.role) {
 			case DOCTOR:
-				res.render("home", {
-					title: "App",
-				});
+				res.redirect("home");
 				break;
 			case ADMIN:
-				res.render("manage", {
-					title: "Manage",
-				});
+				res.redirect("manage");
 				break;
 			default:
-				res.render("error", {
-					title: "ERROR",
-				});
+				res.redirect("error");
 				break;
 		}
 	} else {
@@ -117,15 +109,19 @@ app.get("", (req, res) => {
 	}
 });
 
+app.get("/error", (req, res) => {
+	res.render("error", {
+		title: "Error",
+	});
+});
+
 app.get("/manage", (req, res) => {
 	if (req.session.loggedin) {
 		res.render("manage", {
 			title: "Manage",
 		});
 	} else {
-		res.render("error", {
-			title: "ERROR",
-		});
+		res.redirect("error");
 	}
 });
 
