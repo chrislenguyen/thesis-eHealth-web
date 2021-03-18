@@ -23,8 +23,6 @@ $("#login-button").click(function (e) {
                 console.log("INVALID");
                 $('#notification').text('Invalid username or password');
             } else {
-                console.log(response);
-                console.log(response.transition);
                 window.location.replace(window.location.href + response.transition)
             }
         }
