@@ -7,7 +7,7 @@ $.ajax({
 	// dataType: "dataType",
 	success: function (response) {
 		// console.log(response);
-		selectOption = JSON.parse(response);
+		selectOption = response;
 		// console.log(selectOption);
 		selectOption.forEach((e) => {
 			// console.log(e);
