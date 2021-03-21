@@ -8,6 +8,8 @@ const authenticate = require("./controllers/authenticate");
 const getInitAddDoctor = require("./controllers/getInitAddDoctor");
 const addDoctor = require("./controllers/addDoctor");
 const getInitDoctorInfo = require("./controllers/getInitDoctorInfo");
+const getPatientQueue = require("./controllers/getPatientQueue");
+const addExam = require("./controllers/addExam");
 
 const app = express();
 
@@ -49,13 +51,11 @@ app.post("/logout", (req, res) => {
 	if (req.body.logout === LOG_OUT) {
 		req.session.destroy((err) => {
 			console.log("SESSION DESTROYED");
-			// res.send()
 		});
 	}
 });
 
 app.post("/login-data", (req, res) => {
-	// console.log(req.body);
 	authenticate(
 		req.body,
 		(err, validFlag, { username, role, transition } = {}) => {
@@ -64,20 +64,15 @@ app.post("/login-data", (req, res) => {
 			} else if (!validFlag) {
 				res.end(errorValidating);
 			} else {
-				// console.log(role);
-				// console.log(transition);
-				// const roleParam = role
 				req.session.loggedin = true;
 				req.session.username = username;
 				req.session.role = role;
-				// console.log(setting);
 				res.end(
 					JSON.stringify({
 						error: undefined,
 						transition,
 					})
 				);
-				// res.end();
 			}
 		}
 	);
@@ -141,7 +136,6 @@ app.get("/home", (req, res) => {
 			title: "ERROR",
 		});
 	}
-	// res.render("home");
 });
 
 app.get("/init-doctor-info", (req, res) => {
@@ -149,10 +143,42 @@ app.get("/init-doctor-info", (req, res) => {
 		if (err) {
 			res.send(err);
 		} else {
+			req.session.docId = data.docId;
+			req.session.hosId = data.hospital[0].hosId;
 			res.send(data);
 		}
-	})
-})
+	});
+});
+
+app.post("/get-patient-info", (req, res) => {
+	getPatientQueue(req.body.buildingCd, req.body.roomCd, (err, data) => {
+		if (err) {
+			res.send(err);
+		} else {
+			// console.log(data);
+			req.session.pId = data[0].pId;
+			req.session.sId = data[0].sId;
+			res.send(data);
+		}
+	});
+});
+
+app.post("/add-exam-info", (req, res) => {
+	var data = req.body;
+	// console.log(req.session);
+	data["pId"] = req.session.pId;
+	data["sId"] = req.session.sId;
+	data["docId"] = req.session.docId;
+	data["hosId"] = req.session.hosId;
+	addExam(data, (resp) => {
+		console.log(resp);
+		res.send({
+			resp,
+		});
+		// console.log(err);
+	});
+	// console.log(req.body);
+});
 
 app.listen(3000, () => {
 	console.log("Server started, port 3000");
