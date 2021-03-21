@@ -62,28 +62,116 @@ $("#selBuildingCd").on("change", function () {
 
 $("#btnSelRoomModal").on("click", function () {
 	if ($("#selBuildingCd").val() !== "" && $("#selRoomCd").val() !== "") {
-		$("#buildingCd").val($("#selBuildingCd").val());
-		$("#roomCd").val($("#selRoomCd").val());
-		$("#buildingRoomSelectModal").modal("hide");
+		changeRoom($("#selBuildingCd").val(), $("#selRoomCd").val());
 	}
 });
 
+$("#btnAddMed").click(function (e) {
+	e.preventDefault();
+	if (
+		$("#medModal :input:empty").filter(function () {
+			return $.trim($(this).val()).length == 0;
+		}).length == 0
+	) {
+		medInfo = {
+			name: $("#medNameModal").val().trim(),
+			quantity: $("#medQuantityModal").val(),
+			des: $("#medDescModal").val().trim(),
+		};
+		appendToMedTable(medInfo);
+		$(":input", this).val("");
+		$("#medModal").modal("hide");
+	} else {
+		//TODO
+		// Handle no enough input
+	}
+});
+
+function removeMed() {
+	$(".medDelBtn").click(function (e) {
+		e.preventDefault();
+		$("tr.selected").removeClass("selected");
+		$(this).closest("tr").addClass("selected");
+		$("tr.selected").remove();
+	});
+}
+
+function appendToQueueTable(orderNo, name) {
+	$("#patientQ tbody").append(
+		"<tr>" +
+			'<th scope="row">' +
+			orderNo +
+			"</th>" +
+			"<td>" +
+			name +
+			"</td>" +
+			"</tr>"
+	);
+}
+
+function appendToMedTable({ name, quantity, des } = {}) {
+	$("#medList tbody").append(
+		"<tr>" +
+			"<td>" +
+			name +
+			"</td>" +
+			"<td>" +
+			quantity +
+			"</td>" +
+			"<td>" +
+			des +
+			"</td>" +
+			"<td>" +
+			'<button type="button" class="btn btn-danger medDelBtn" id="medDelBtn">' +
+			'<i class="bi bi-trash-fill"></i>' +
+			"</button>" +
+			"</td>" +
+			"</tr>"
+	);
+	removeMed(); //Binding function
+}
+
+function changeRoom(buildingCd, roomCd) {
+	$("#patientQ tbody").empty();
+	$("#buildingCd").val(buildingCd);
+	$("#roomCd").val(roomCd);
+	$("#buildingRoomSelectModal").modal("hide");
+	// console.log(buildingCd);
+	// console.log(roomCd);
+	data = { buildingCd, roomCd };
+	$.ajax({
+		type: "post",
+		url: "/get-patient-info",
+		data: data,
+		dataType: "json",
+		success: function (response) {
+			loadQueue(response);
+			loadExamForm(response[0]);
+			// $("#medList tbody").remove();
+		},
+	});
+}
+
 function initPage() {
+	$("#buildingRoomSelectModal").modal({
+		backdrop: "static",
+		keyboard: false,
+	});
 	$.ajax({
 		type: "get",
 		url: "/init-doctor-info",
-		async: false,
+		// async: false,
 		success: function (res) {
 			doctorInfo = res;
 			doctorLocation = doctorInfo.hospital[0];
 			doctorBuilding = doctorInfo.hospital[0].building;
+			$("#selBuildingCd").append(new Option(""));
+			loadDoctorInfo();
 			// console.log(doctorLocation);
 		},
 	});
-	// console.log(doctorLocation);
-	$("#selBuildingCd").append(new Option(""));
 	showDate();
-	loadDoctorInfo();
+	// console.log(doctorLocation);
 }
 
 function loadDoctorInfo() {
