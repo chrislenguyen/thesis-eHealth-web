@@ -7,39 +7,87 @@ var doctorInfo;
 var doctorLocation;
 var doctorBuilding;
 
-$("#buildingRoomSelectModal").modal({
-	backdrop: "static",
-	keyboard: false,
-});
-
-function showDate() {
-	var today = new Date();
-	var dd = String(today.getDate()).padStart(2, "0");
-	var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-	var yyyy = today.getFullYear();
-
-	today = mm + "/" + dd + "/" + yyyy;
-
-	// console.log(today);
-
-	$("#currentDate").val(today);
-}
-
 $("#btnCancelMedModal").on("click", function () {
-	$("#myModal").modal("hide");
+	$("#medModal").modal("hide");
 });
 
 $("#medModal").on("hidden.bs.modal", function () {
 	$(":input", this).val("");
-	console.log("HIDED");
 });
 
-$("#examFormSubmitBtn").on("click", function () {});
+$("#btnAddPatient").on("click", function () {
+	var lname = $("#lNameModal").val().trim();
+	var fname = $("#fNameModal").val().trim();
+	var dob = $("#dobModal").val();
+	var gender = $("#genderModal").val();
+	var ssn = $("#ssnModal").val().trim();
+	var phoneNo = $("#phoneNoModal").val().trim();
+	var address = $("#addressModal").val().trim();
+	var patientInfo = {
+		lname,
+		fname,
+		dob,
+		gender,
+		ssn,
+		phoneNo,
+		address,
+	};
+	loadPatientInfo(patientInfo);
+	$("#addPatientModal").modal("hide");
+});
 
-function appendToTable(tableId, data) {
-	$("#" + tableId + " tbody").append("<tr><th>" + data + "</th></tr>");
-	// console.log("<tr><th>" + data + "</th></tr>");
-}
+$("#btnCancelPatientModal").on("click", function () {
+	if (
+		$("#addPatientModal :input:empty").filter(function () {
+			return $.trim($(this).val()).length == 0;
+		}).length == 0
+	) {
+		$("#addPatientModal").modal("hide");
+	} else {
+		// TODO
+		// Handle not enough input
+	}
+});
+
+$("#examFormSubmitBtn").on("click", function () {
+	var med = [];
+	table = $("#medList tbody");
+	for (let i = 0; table.find("tr").length > 0; i++) {
+		med[i] = {
+			medName: table.find("tr").find("td").eq(0).text(),
+			quantity: table.find("tr").find("td").eq(1).text(),
+			des: table.find("tr").find("td").eq(2).text(),
+		};
+		table.find("tr")[0].remove();
+	}
+	// console.log(med);
+	data = {
+		newPatientFlag: $("#hdnNewPatientFlag").val(),
+		lname: $("#lNameModal").val().trim(),
+		fname: $("#fNameModal").val().trim(),
+		dob: $("#dob").val(),
+		gender: $("#genderModal").val(),
+		ssn: $("#ssn").val().trim(),
+		phoneNo: $("#phoneNo").val().trim(),
+		address: $("#address").val().trim(),
+		diagnose: $("#diagnose").val().trim(),
+		nextExamDate: $("#nextExamDate").val().trim(),
+		med,
+	};
+	// console.log(data);
+	$.ajax({
+		type: "post",
+		url: "/add-exam-info",
+		data,
+		dataType: "json",
+		success: function (response) {
+			if (response.resp == 1) {
+				$(".remove-target").val("");
+			}
+			console.log(response);
+		},
+	});
+});
 
 $("#selBuildingCd").on("change", function () {
 	if (this.value !== "") {
