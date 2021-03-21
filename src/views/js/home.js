@@ -98,10 +98,70 @@ function loadDoctorInfo() {
 				new Option(building.bCode, building.bCode)
 			);
 		});
+	} else {
+		// TODO
+		// Handle error
 	}
 }
 
-function loadPatientInfo() {}
+function loadQueue(data) {
+	data.forEach((e) => {
+		e.valid != 0
+			? appendToQueueTable(e.orderNo, e.lname + " " + e.fname)
+			: appendToQueueTable(e.orderNo, "NEW PATIENT");
+	});
+	// console.log(data);
+}
+
+function loadPatientInfo({
+	lname,
+	fname,
+	dob,
+	gender,
+	ssn,
+	phoneNo,
+	address,
+} = {}) {
+	$("#pName").val(lname + " " + fname);
+	$("#dob").val(dob);
+	gender == "m" ? $("#gender").val("Male") : $("#gender").val("Female");
+	$("#ssn").val(ssn);
+	$("#phoneNo").val(phoneNo);
+	$("#address").val(address);
+	$("#lNameModal").val(lname);
+	$("#fNameModal").val(fname);
+}
+
+function loadSensorInfo({
+	weight,
+	temper,
+	spo2,
+	height,
+	hPulse,
+	hPressure,
+} = {}) {
+	// console.log(sensorInfo);
+	$("#weight").val(weight);
+	$("#temper").val(temper);
+	$("#spo2").val(spo2);
+	$("#height").val(height);
+	$("#hPulse").val(hPulse);
+	$("#hPressure").val(hPressure);
+}
+
+function loadExamForm(data) {
+	if (data.valid == 0) {
+		$("#hdnNewPatientFlag").val(1);
+		$("#addPatientModal").modal({
+			backdrop: "static",
+			keyboard: false,
+		});
+	} else {
+		$("#hdnNewPatientFlag").val(0);
+		loadPatientInfo(data);
+	}
+	loadSensorInfo(data.sensorInfo[0]);
+}
 
 function convertLastName(lname) {
 	var allCapLName = "";
