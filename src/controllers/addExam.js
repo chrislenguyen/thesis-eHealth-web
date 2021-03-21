@@ -12,28 +12,33 @@ function addExamMed(data, callback) {
 			if (data.med === undefined) {
 				callback(1);
 			} else {
+				var resp;
 				data.med.forEach((e) => {
 					var medData = {
 						medName: e.medName,
 						pId: data.pId,
 						exId: res,
 						quantity: e.quantity,
+						des: e.des,
 					};
 					queryAddMed(medData, (res) => {
 						if (res < 0) {
-							callback(0);
+							resp = 0;
 						} else {
-							callback(1);
+							resp = 1;
 						}
+						console.log(resp);
 					});
 				});
+				// console.log(resp);
+				callback(1);
 			}
 		}
 	});
 }
 
 const addExam = (data, callback) => {
-	console.log(data);
+	// console.log(data);
 	if (data.newPatientFlag === "1") {
 		queryAddNewPatient(data, (res) => {
 			if (res < 0) {

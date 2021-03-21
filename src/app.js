@@ -165,13 +165,13 @@ app.post("/get-patient-info", (req, res) => {
 
 app.post("/add-exam-info", (req, res) => {
 	var data = req.body;
-	// console.log(req.session);
+	console.log(data);
 	data["pId"] = req.session.pId;
 	data["sId"] = req.session.sId;
 	data["docId"] = req.session.docId;
 	data["hosId"] = req.session.hosId;
 	addExam(data, (resp) => {
-		console.log(resp);
+		// console.log(resp);
 		res.send({
 			resp,
 		});

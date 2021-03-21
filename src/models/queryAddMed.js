@@ -1,7 +1,7 @@
 const queryForObject = require("./queryForObject");
 const mysql = require("mysql");
 
-const queryAddMed = ({ pId, exId, medName, quantity } = {}, callback) => {
+const queryAddMed = ({ pId, exId, des, medName, quantity } = {}, callback) => {
 	var query =
 		"DECLARE @return_status INT; " +
 		"EXEC hospital.Add_Medication " +
@@ -17,14 +17,13 @@ const queryAddMed = ({ pId, exId, medName, quantity } = {}, callback) => {
 		"@Amount = " +
 		mysql.escape(quantity) +
 		"," +
+		"@Description = " +
+		mysql.escape(des) +
+		"," +
 		"@para_out = @return_status OUTPUT;";
 	// console.log(query);
 	queryForObject(query, (err, data) => {
-		if (err) {
-			callback(err, undefined);
-		} else {
-			callback(undefined, data[0]);
-		}
+		callback(data);
 	});
 };
 
