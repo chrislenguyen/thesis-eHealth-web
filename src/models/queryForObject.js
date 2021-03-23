@@ -1,6 +1,6 @@
 const Connection = require("tedious").Connection;
 const Request = require("tedious").Request;
-const databaseConfig = require('../../setting.json').databaseConfig;
+const databaseConfig = require("../../setting.json").databaseConfig;
 
 const queryForObject = (queryStatement, callback) => {
 	var connection = new Connection(databaseConfig);
@@ -17,23 +17,21 @@ const queryForObject = (queryStatement, callback) => {
 	});
 
 	connection.connect();
-
 	function executeStatement(query) {
-		request = new Request(query, function (err) {
+		let request = new Request(query, function (err, rowCount, rows) {
 			if (err) {
-				callback(err, undefined);
+				return callback(err, undefined);
+			} else {
+				// console.log(rowCount);
+				var data = "";
+				rows.forEach((e) => {
+					data += e[0].value;
+					// console.log(e[0].value);
+				});
+				callback(undefined, JSON.parse(data));
 			}
 		});
 		connection.execSql(request);
-
-		request.on("row", function (columns) { 
-			columns.forEach(e => {
-				// console.log(e.value);
-				// console.log(JSON.parse(e.value));
-				var data = JSON.parse(e.value)
-				callback(undefined, data)
-			});
-		})
 	}
 };
 
