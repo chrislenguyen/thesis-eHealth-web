@@ -18,7 +18,10 @@ const queryForAuthentication = (username, password, callback) => {
 			// console.log(data);
 			callback(err, undefined);
 		} else {
-			callback(undefined, data[0]);
+			// console.log(data);
+			data !== undefined
+				? callback(undefined, data[0])
+				: callback(undefined, undefined);
 		}
 	});
 };

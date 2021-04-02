@@ -3,6 +3,7 @@ const mysql = require("mysql");
 
 const queryPatientQueue = (buildingCd, roomCd, callback) => {
 	const query =
+		// "SET TEXTSIZE 2147483647 " +
 		"SELECT " +
 		"pId, " +
 		"orderNo, " +
@@ -50,10 +51,13 @@ const queryPatientQueue = (buildingCd, roomCd, callback) => {
 		"INNER JOIN SENSOR_INFORMATION sensorInfo ON peq.sId = sensorInfo.ID " +
 		"ORDER BY " +
 		"orderNo FOR JSON AUTO ";
+	// console.log(query);
 	queryForObject(query, (err, data) => {
 		if (err) {
-			callback(err, undefined);
+			console.log("ERROR QUERY QUEUE");
+			// callback(err, undefined);
 		} else {
+			// console.log(data);
 			callback(undefined, data);
 		}
 	});

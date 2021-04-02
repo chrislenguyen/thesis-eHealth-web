@@ -1,6 +1,7 @@
 const queryAddMed = require("../models/queryAddMed");
 const queryAddExam = require("../models/queryAddExam");
 const queryAddNewPatient = require("../models/queryAddNewPatient");
+const deleteQueue = require("./deleteQueue");
 
 function addExamMed(data, callback) {
 	queryAddExam(data, (res) => {
@@ -12,6 +13,8 @@ function addExamMed(data, callback) {
 			if (data.med === undefined) {
 				callback(1);
 			} else {
+				// TODO
+				// Handle better add medication
 				var resp;
 				data.med.forEach((e) => {
 					var medData = {
@@ -27,7 +30,7 @@ function addExamMed(data, callback) {
 						} else {
 							resp = 1;
 						}
-						console.log(resp);
+						// console.log(resp);
 					});
 				});
 				// console.log(resp);
@@ -39,18 +42,34 @@ function addExamMed(data, callback) {
 
 const addExam = (data, callback) => {
 	// console.log(data);
+	//TODO
+	// Clean code delete queue + add Med
 	if (data.newPatientFlag === "1") {
 		queryAddNewPatient(data, (res) => {
 			if (res < 0) {
 				return callback("ERROR");
 			}
 			addExamMed(data, (res) => {
-				callback(res);
+				if (res > 0) {
+					deleteQueue(data, (res) => {
+						if (res < 0) {
+							return console.log("ERROR DELETE QUEUE");
+						}
+						callback(1);
+					});
+				}
 			});
 		});
 	} else {
 		addExamMed(data, (res) => {
-			callback(res);
+			if (res > 0) {
+				deleteQueue(data, (res) => {
+					if (res < 0) {
+						return console.log("ERROR DELETE QUEUE");
+					}
+					callback(1);
+				});
+			}
 		});
 	}
 };

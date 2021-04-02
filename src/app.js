@@ -10,6 +10,8 @@ const addDoctor = require("./controllers/addDoctor");
 const getInitDoctorInfo = require("./controllers/getInitDoctorInfo");
 const getPatientQueue = require("./controllers/getPatientQueue");
 const addExam = require("./controllers/addExam");
+const deleteQueue = require("./controllers/deleteQueue");
+const deleteAbsPatient = require("./controllers/deleteAbsPatient");
 
 const app = express();
 
@@ -17,10 +19,14 @@ const viewPath = path.join(__dirname, "../src/views");
 const partialsPath = path.join(__dirname, "../templates/partials");
 
 const CONNECTION_ERROR = 1;
+const ABSENT = "1";
 const DOCTOR = "2";
 const ADMIN = "3";
 const INVALID_LOGIN = 2;
 const LOG_OUT = "1";
+const NO_DATA = JSON.stringify({
+	noDataFlag: 1,
+});
 const errorConnection = JSON.stringify({
 	error: CONNECTION_ERROR,
 	data: undefined,
@@ -59,6 +65,7 @@ app.post("/login-data", (req, res) => {
 	authenticate(
 		req.body,
 		(err, validFlag, { username, role, transition } = {}) => {
+			// console.log(validFlag);
 			if (err) {
 				res.end(errorConnection);
 			} else if (!validFlag) {
@@ -156,28 +163,67 @@ app.post("/get-patient-info", (req, res) => {
 			res.send(err);
 		} else {
 			// console.log(data);
-			req.session.pId = data[0].pId;
-			req.session.sId = data[0].sId;
-			res.send(data);
+
+			if (data !== undefined) {
+				// console.log(data[0]);
+				req.session.pId = data[0].pId;
+				req.session.sId = data[0].sId;
+				req.session.orderNo = data[0].orderNo;
+				req.session.buildingCd = req.body.buildingCd;
+				req.session.roomCd = req.body.roomCd;
+				res.send(data);
+			} else {
+				res.send(NO_DATA);
+			}
 		}
 	});
 });
 
 app.post("/add-exam-info", (req, res) => {
-	var data = req.body;
-	console.log(data);
-	data["pId"] = req.session.pId;
-	data["sId"] = req.session.sId;
-	data["docId"] = req.session.docId;
-	data["hosId"] = req.session.hosId;
-	addExam(data, (resp) => {
-		// console.log(resp);
+	var examData = req.body;
+	console.log(examData);
+	examData["pId"] = req.session.pId;
+	examData["sId"] = req.session.sId;
+	examData["docId"] = req.session.docId;
+	examData["hosId"] = req.session.hosId;
+	//TODO
+	// Handle throw exception when out of session
+	addExam(examData, (procRes) => {
+		console.log(procRes);
+		//TODO
+		// Handle fail add exam
 		res.send({
-			resp,
+			procRes,
 		});
 		// console.log(err);
 	});
 	// console.log(req.body);
+});
+
+app.post("/delete-absent-patient", (req, res) => {
+	data = req.body;
+	patientInfo = {
+		pId: req.session.pId,
+		sId: req.session.sId,
+		hosId: req.session.hosId,
+		buildingCd: req.session.buildingCd,
+		roomCd: req.session.roomCd,
+		orderNo: req.session.orderNo,
+	};
+	console.log(patientInfo);
+	if (data.newPatientFlag === ABSENT) {
+		deleteQueue(patientInfo, (delQueueRes) => {
+			if (delQueueRes) {
+				deleteAbsPatient(patientInfo, (delPatientRes) => {
+					res.send({ delPatientRes });
+				});
+			} else {
+				//TODO
+				//Handle delete temp patient fail
+			}
+		});
+		// console.log(patientInfo);
+	}
 });
 
 app.listen(3000, () => {

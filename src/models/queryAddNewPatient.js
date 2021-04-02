@@ -35,9 +35,11 @@ const queryAddNewPatient = (
 		"," +
 		"@User_Name =" +
 		mysql.escape(
-			fname.toLowerCase() +
+			(
+				fname.toLowerCase() +
 				lname.toLowerCase() +
 				dob.toString().substr(2, 2)
+			).replace(/\s/g, "")
 		) +
 		"," +
 		"@Password = " +
@@ -45,15 +47,16 @@ const queryAddNewPatient = (
 		"," +
 		"@E_Mail =" +
 		mysql.escape(
-			fname.toLowerCase() +
+			(
+				fname.toLowerCase() +
 				lname.toLowerCase() +
-				dob.toString().substr(2, 2) +
-				"@gmail.com"
+				dob.toString().substr(2, 2)
+			).replace(/\s/g, "") + "@gmail.com"
 		) +
 		"," +
 		"@para_out = @return_status OUTPUT";
 	// "'51'";
-	// console.log(query);
+	console.log(query);
 	queryForObject(query, (err, data) => {
 		// console.log(data);
 		callback(data);

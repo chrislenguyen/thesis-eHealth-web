@@ -28,7 +28,10 @@ const queryForObject = (queryStatement, callback) => {
 					data += e[0].value;
 					// console.log(e[0].value);
 				});
-				callback(undefined, JSON.parse(data));
+				// console.log(data);
+				data.length > 0
+					? callback(undefined, JSON.parse(data))
+					: callback(undefined, undefined);
 			}
 		});
 		connection.execSql(request);

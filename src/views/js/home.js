@@ -7,6 +7,98 @@ var doctorInfo;
 var doctorLocation;
 var doctorBuilding;
 
+// Set scrolling for queue and form
+
+$("#leftCol").css(
+	"min-height",
+	$("#outLeftCol").innerHeight() -
+		($("#infoBar").innerHeight() + $("#roomBar").innerHeight()) -
+		10
+);
+
+$("#leftCol").css(
+	"max-height",
+	$("#outLeftCol").innerHeight() -
+		($("#infoBar").innerHeight() + $("#roomBar").innerHeight()) -
+		10
+);
+
+$("#rightExamForm").css(
+	"min-height",
+	$("#outRightCol").innerHeight() -
+		($("#rightTopBar").innerHeight() + $("#rightInfoBar").innerHeight()) -
+		10
+);
+
+$("#rightExamForm").css(
+	"max-height",
+	$("#outRightCol").innerHeight() -
+		($("#rightTopBar").innerHeight() + $("#rightInfoBar").innerHeight()) -
+		10
+);
+
+$("#btnConfirmPresModal").click(function (e) {
+	e.preventDefault();
+	var decision = confirm("ARE YOU SURE?");
+	if (decision) {
+		$("#presConfirmModal").modal("hide");
+		// console.log($("#hdnNewPatientFlag").val());
+		if ($("#hdnNewPatientFlag").val() == 1) {
+			$("#addPatientModal").modal({
+				backdrop: "static",
+				keyboard: false,
+			});
+		}
+	}
+});
+
+$("#btnReloadQueue").click(function (e) {
+	e.preventDefault();
+	getPatientInfo(data, (patientInfo) => {
+		if (patientInfo.noDataFlag) {
+			$("#btnReloadQueue").show();
+		} else {
+			loadQueue(patientInfo);
+			loadExamForm(patientInfo[0]);
+		}
+	});
+});
+
+$("#btnNoPresModal").click(function (e) {
+	e.preventDefault();
+	var decision = confirm("ARE YOU SURE?");
+	if (decision) {
+		$("#presConfirmModal").modal("hide");
+		data = {
+			absent: 1,
+			newPatientFlag: $("#hdnNewPatientFlag").val(),
+			roomCd: $("#roomCd").val().trim(),
+			buildingCd: $("#buildingCd").val().trim(),
+		};
+		$.ajax({
+			type: "post",
+			url: "/delete-absent-patient",
+			data,
+			dataType: "json",
+			success: function (res) {
+				if (res.delPatientRes == 1) {
+					getPatientInfo(data, (patientInfo) => {
+						if (patientInfo.noDataFlag) {
+							$("#btnReloadQueue").show();
+						} else {
+							loadQueue(patientInfo);
+							loadExamForm(patientInfo[0]);
+						}
+					});
+					clearInput();
+					clearQueue();
+				}
+			},
+		});
+	}
+});
+// On screen events
+
 $("#btnCancelMedModal").on("click", function () {
 	$("#medModal").modal("hide");
 });
@@ -15,25 +107,47 @@ $("#medModal").on("hidden.bs.modal", function () {
 	$(":input", this).val("");
 });
 
+$("#btnModPatientInfo").click(function (e) {
+	e.preventDefault();
+	// TODO
+	// Handle modify patient info
+	$("#addPatientModal").modal({
+		backdrop: "static",
+		keyboard: false,
+	});
+});
+
 $("#btnAddPatient").on("click", function () {
-	var lname = $("#lNameModal").val().trim();
-	var fname = $("#fNameModal").val().trim();
-	var dob = $("#dobModal").val();
-	var gender = $("#genderModal").val();
-	var ssn = $("#ssnModal").val().trim();
-	var phoneNo = $("#phoneNoModal").val().trim();
-	var address = $("#addressModal").val().trim();
-	var patientInfo = {
-		lname,
-		fname,
-		dob,
-		gender,
-		ssn,
-		phoneNo,
-		address,
-	};
-	loadPatientInfo(patientInfo);
-	$("#addPatientModal").modal("hide");
+	if (
+		$("#addPatientModal :input:empty").filter(function () {
+			return $.trim($(this).val()).length == 0;
+		}).length == 0
+	) {
+		var lname = $("#lNameModal").val().trim();
+		var fname = $("#fNameModal").val().trim();
+		var dob = $("#dobModal").val();
+		var gender = $("#genderModal").val();
+		var ssn = $("#ssnModal").val().trim();
+		var phoneNo = $("#phoneNoModal").val().trim();
+		var address = $("#addressModal").val().trim();
+		var patientInfo = {
+			lname,
+			fname,
+			dob,
+			gender,
+			ssn,
+			phoneNo,
+			address,
+		};
+		loadPatientInfo(patientInfo);
+		$("#addPatientModal").modal("hide");
+		for (let i = 0; i < $(".modal").find("input").length; ++i) {
+			console.log();
+		}
+	} else {
+		// TODO
+		// Handle not enough input
+	}
 });
 
 $("#btnCancelPatientModal").on("click", function () {
@@ -49,7 +163,8 @@ $("#btnCancelPatientModal").on("click", function () {
 	}
 });
 
-$("#examFormSubmitBtn").on("click", function () {
+$("#btnSubmitExamForm").on("click", function () {
+	window.scrollTo({ top: 0, behavior: "smooth" });
 	var med = [];
 	table = $("#medList tbody");
 	for (let i = 0; table.find("tr").length > 0; i++) {
@@ -62,6 +177,7 @@ $("#examFormSubmitBtn").on("click", function () {
 	}
 	// console.log(med);
 	data = {
+		orderNo: $("#patientQ tbody tr th").eq(0).text(),
 		newPatientFlag: $("#hdnNewPatientFlag").val(),
 		lname: $("#lNameModal").val().trim(),
 		fname: $("#fNameModal").val().trim(),
@@ -72,6 +188,8 @@ $("#examFormSubmitBtn").on("click", function () {
 		address: $("#address").val().trim(),
 		diagnose: $("#diagnose").val().trim(),
 		nextExamDate: $("#nextExamDate").val().trim(),
+		roomCd: $("#roomCd").val().trim(),
+		buildingCd: $("#buildingCd").val().trim(),
 		med,
 	};
 	// console.log(data);
@@ -80,11 +198,24 @@ $("#examFormSubmitBtn").on("click", function () {
 		url: "/add-exam-info",
 		data,
 		dataType: "json",
-		success: function (response) {
-			if (response.resp == 1) {
-				$(".remove-target").val("");
+		success: function (res) {
+			console.log(res);
+			if (res.procRes == 1) {
+				getPatientInfo(data, (patientInfo) => {
+					if (patientInfo.noDataFlag) {
+						$("#btnReloadQueue").show();
+					} else {
+						loadQueue(patientInfo);
+						loadExamForm(patientInfo[0]);
+					}
+				});
+				clearInput();
+				clearQueue();
+			} else {
+				// TODO
+				// Handle submit exam form fail
 			}
-			console.log(response);
+			// console.log(response);
 		},
 	});
 });
@@ -135,6 +266,17 @@ $("#btnAddMed").click(function (e) {
 	}
 });
 
+// Functions
+
+function clearInput() {
+	$(".remove-target").val("");
+	$(".modal").find("input").val("").end();
+}
+
+function clearQueue() {
+	$("#patientQ tbody").empty();
+}
+
 function removeMed() {
 	$(".medDelBtn").click(function (e) {
 		e.preventDefault();
@@ -150,7 +292,7 @@ function appendToQueueTable(orderNo, name) {
 			'<th scope="row">' +
 			orderNo +
 			"</th>" +
-			"<td>" +
+			'<td colspan="2">' +
 			name +
 			"</td>" +
 			"</tr>"
@@ -179,24 +321,39 @@ function appendToMedTable({ name, quantity, des } = {}) {
 	removeMed(); //Binding function
 }
 
-function changeRoom(buildingCd, roomCd) {
-	$("#patientQ tbody").empty();
-	$("#buildingCd").val(buildingCd);
-	$("#roomCd").val(roomCd);
-	$("#buildingRoomSelectModal").modal("hide");
-	// console.log(buildingCd);
-	// console.log(roomCd);
-	data = { buildingCd, roomCd };
+const getPatientInfo = (data, callback) => {
 	$.ajax({
 		type: "post",
 		url: "/get-patient-info",
-		data: data,
+		data,
 		dataType: "json",
 		success: function (response) {
+			callback(response);
+		},
+	});
+};
+
+function changeRoom(buildingCd, roomCd) {
+	clearQueue();
+	clearInput();
+	$("#buildingCd").val(buildingCd);
+	$("#roomCd").val(roomCd);
+	$("#buildingRoomSelectModal").modal("hide");
+	data = { buildingCd, roomCd };
+	getPatientInfo(data, (response) => {
+		if (response.noDataFlag) {
+			$("#btnReloadQueue").show();
+		} else {
 			loadQueue(response);
 			loadExamForm(response[0]);
-			// $("#medList tbody").remove();
-		},
+		}
+	});
+}
+
+function confirmPatientPresence() {
+	$("#presConfirmModal").modal({
+		backdrop: "static",
+		keyboard: false,
 	});
 }
 
@@ -218,6 +375,7 @@ function initPage() {
 			// console.log(doctorLocation);
 		},
 	});
+
 	showDate();
 	// console.log(doctorLocation);
 }
@@ -241,6 +399,7 @@ function loadDoctorInfo() {
 }
 
 function loadQueue(data) {
+	$("#btnReloadQueue").hide();
 	data.forEach((e) => {
 		e.valid != 0
 			? appendToQueueTable(e.orderNo, e.lname + " " + e.fname)
@@ -264,8 +423,8 @@ function loadPatientInfo({
 	$("#ssn").val(ssn);
 	$("#phoneNo").val(phoneNo);
 	$("#address").val(address);
-	$("#lNameModal").val(lname);
-	$("#fNameModal").val(fname);
+	// $("#lNameModal").val(lname);
+	// $("#fNameModal").val(fname);
 }
 
 function loadSensorInfo({
@@ -288,11 +447,9 @@ function loadSensorInfo({
 function loadExamForm(data) {
 	if (data.valid == 0) {
 		$("#hdnNewPatientFlag").val(1);
-		$("#addPatientModal").modal({
-			backdrop: "static",
-			keyboard: false,
-		});
+		confirmPatientPresence();
 	} else {
+		confirmPatientPresence();
 		$("#hdnNewPatientFlag").val(0);
 		loadPatientInfo(data);
 	}
