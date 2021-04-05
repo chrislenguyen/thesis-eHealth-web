@@ -14,6 +14,7 @@ const deleteQueue = require("./controllers/deleteQueue");
 const deleteAbsPatient = require("./controllers/deleteAbsPatient");
 
 const app = express();
+const port = process.env.PORT || 3000
 
 const viewPath = path.join(__dirname, "../src/views");
 const partialsPath = path.join(__dirname, "../templates/partials");
@@ -226,6 +227,6 @@ app.post("/delete-absent-patient", (req, res) => {
 	}
 });
 
-app.listen(3000, () => {
-	console.log("Server started, port 3000");
+app.listen(port, () => {
+	console.log("Server started, port " + port);
 });
