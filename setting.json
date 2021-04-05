@@ -1,0 +1,30 @@
+{
+	"role_setting": [
+		{
+			"role": "2",
+			"screen": "home"
+		},
+		{
+			"role": "3",
+			"screen": "manage"
+		}
+	],
+
+	"databaseConfig": {
+		"server": "hospitaldb.database.windows.net",
+		"authentication": {
+			"type": "default",
+			"options": {
+				"userName": "JETSON_BOARD",
+				"password": "Database_Hospital@123"
+			}
+		},
+		"options": {
+			"encrypt": true,
+			"database": "HospitalDB",
+			"rowCollectionOnDone": true,
+			"rowCollectionOnRequestCompletion": true,
+			"packetSize": 16384
+		}
+	}
+}
