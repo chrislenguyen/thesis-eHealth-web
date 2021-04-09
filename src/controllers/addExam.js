@@ -1,6 +1,7 @@
 const queryAddMed = require("../models/queryAddMed");
 const queryAddExam = require("../models/queryAddExam");
 const queryAddNewPatient = require("../models/queryAddNewPatient");
+const triggerEvHubPatient = require("../models/triggerEvHubPatient");
 const deleteQueue = require("./deleteQueue");
 
 function addExamMed(data, callback) {
@@ -55,6 +56,7 @@ const addExam = (data, callback) => {
 						if (res < 0) {
 							return console.log("ERROR DELETE QUEUE");
 						}
+						triggerEvHubPatient(data.pId);
 						callback(1);
 					});
 				}

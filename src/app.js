@@ -14,7 +14,7 @@ const deleteQueue = require("./controllers/deleteQueue");
 const deleteAbsPatient = require("./controllers/deleteAbsPatient");
 
 const app = express();
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3000;
 
 const viewPath = path.join(__dirname, "../src/views");
 const partialsPath = path.join(__dirname, "../templates/partials");
@@ -135,7 +135,7 @@ app.get("/init-add-doctor", (req, res) => {
 });
 
 app.get("/home", (req, res) => {
-	if (req.session.loggedin) {
+	if (req.session.loggedin && req.session.role == DOCTOR) {
 		res.render("home", {
 			title: "App",
 		});
@@ -182,12 +182,12 @@ app.post("/get-patient-info", (req, res) => {
 
 app.post("/add-exam-info", (req, res) => {
 	var examData = req.body;
-	console.log(examData);
 	examData["pId"] = req.session.pId;
 	examData["sId"] = req.session.sId;
 	examData["docId"] = req.session.docId;
 	examData["hosId"] = req.session.hosId;
 	//TODO
+	console.log(examData);
 	// Handle throw exception when out of session
 	addExam(examData, (procRes) => {
 		console.log(procRes);
@@ -224,6 +224,16 @@ app.post("/delete-absent-patient", (req, res) => {
 			}
 		});
 		// console.log(patientInfo);
+	} else {
+		deleteQueue(patientInfo, (delQueueRes) => {
+			if (delQueueRes) {
+				console.log(delQueueRes);
+				res.send({ delQueueRes });
+			} else {
+				// TODO
+				// Handle delete queue absent patient
+			}
+		});
 	}
 });
 
