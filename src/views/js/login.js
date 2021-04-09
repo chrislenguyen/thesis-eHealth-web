@@ -21,12 +21,9 @@ $("#login-button").click(function (e) {
 			if (response.error === INVALID_LOGIN) {
 				// console.log(response.error);
 				console.log("INVALID");
-				$("#notification").text("Invalid username or password");
-			} else {
-				window.location.replace(
-					window.location.href + response.transition
-				);
+				return $("#notification").text("Invalid username or password");
 			}
+			window.location.replace(window.location.href + response.transition);
 		},
 	});
 });
