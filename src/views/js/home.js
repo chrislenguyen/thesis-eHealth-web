@@ -81,7 +81,7 @@ $("#btnNoPresModal").click(function (e) {
 			data,
 			dataType: "json",
 			success: function (res) {
-				if (res.delPatientRes == 1) {
+				if (res.delPatientRes == 1 || res.delQueueRes == 1) {
 					getPatientInfo(data, (patientInfo) => {
 						if (patientInfo.noDataFlag) {
 							$("#btnReloadQueue").show();
