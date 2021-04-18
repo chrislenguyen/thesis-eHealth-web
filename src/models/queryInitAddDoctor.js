@@ -8,7 +8,6 @@ const queryInitAddDoctor = (callback) => {
 		if (err) {
 			callback(err, undefined);
 		} else {
-			// console.log(data);
 			callback(undefined, data);
 		}
 	});

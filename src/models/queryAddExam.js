@@ -27,7 +27,6 @@ const queryAddExam = (
 		mysql.escape(hosId) +
 		" ," +
 		"@para_out = @return_status OUTPUT; ";
-	// console.log(query);
 	queryForObject(query, (err, data) => {
 		callback(data);
 	});
