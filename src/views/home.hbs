@@ -7,18 +7,16 @@
 	<div class="container-fluid h-100">
 		<div class="row h-100">
 			<div class="col-3 border" id="outLeftCol">
-				<div id="infoBar" class="row align-items-center border" style="padding: 5px;">
+				<div id="infoBar" class="row align-items-center border" style="padding: 5px; height: 70px;">
 
 					<div class="col-2">
 						<i class="fas fa-hospital-user" aria-hidden="true" style="font-size: 30px;"></i>
 					</div>
 					<div class="container col-8">
-						<textarea id="doctorName" class="col text-dark" rows="1" readOnly="true"
-							aria-label="With textarea"
-							style="font-size: 25px; border: none; box-shadow: none; resize: none; background-color: white; text-align: center;"></textarea>
+						<input type="text" name="10" id="doctorName" class="col text-dark custom-input"
+							style="border: none; box-shadow: none; resize: none; background-color: white; text-align: center; font-size: 37px;"
+							readonly>
 					</div>
-
-					{{!-- <div class="col-1"></div> --}}
 
 					<button style="right: 10px;" type="button" name="" id="logoutBtn" class="btn btn-dark col-2 btn-sm">
 						Log
@@ -54,14 +52,12 @@
 				</div>
 			</div>
 			<div class="col-9 border" id="outRightCol">
-				<div id="rightTopBar" class="row border align-items-center">
+				<div id="rightTopBar" class="row border align-items-center" style="height: 70px;">
 					<div class="col-2">
 					</div>
-					<textarea id="hosName" class="col-7 text-dark" rows="1" readOnly="true" aria-label="With textarea"
-						style="padding-top: 0; padding-bottom:0; font-size: 40px; border: none; box-shadow: none; resize: none; background-color: white; text-align: center;"></textarea>
-					{{!-- <div class="col " style="font-size: 40px; text-align: center;">
-						Hospital Name
-					</div> --}}
+					<input type="text" name="10" id="hosName" class="col col-7 text-dark custom-input"
+						style="border: none; box-shadow: none; resize: none; background-color: white; text-align: center; font-size: 40px;"
+						readonly>
 					<textarea id="currentDate" class="col-3 text-dark" rows="1" readOnly="true"
 						aria-label="With textarea"
 						style="border: none; box-shadow: none; resize: none; background-color: white; text-align: right;"></textarea>
@@ -107,9 +103,21 @@
 					</div>
 				</div>
 				<div class="row">
-					<div id="rightExamForm" class="container-fluid" style="overflow-y: auto; padding-bottom: 10px;">
-						<h3>Biometric Parameters</h3>
-						<div class="row" style="padding-right: 15px;">
+					<div id="rightExamForm" class="container-fluid"
+						style="overflow-y: auto; padding-bottom: 10px; padding-top: 10px;">
+						<div class="row justify-content-center">
+							<div class="col-11">
+								<h3>Biometric Parameters</h3>
+							</div>
+							<div class="col col-1">
+								<button title="Previous Examination" type="button" class="btn btn-dark btn-sm"
+									id="btnShowExamHistory" data-toggle="modal" data-target="#examHistoryModal"><i
+										class="bi bi-clock-history"
+										style="font-size: 20px; margin-bottom: 8px;"></i></button>
+							</div>
+
+						</div>
+						<div class="row" style="padding: 15px;">
 							<textarea class="col col-2 text-dark" rows="1" readOnly="true" aria-label="With textarea"
 								style="border: none; box-shadow: none; resize: none; background-color: white; text-align: center;">Weight (kg)</textarea>
 							<textarea class="col col-2 text-dark remove-target" rows="1" readOnly="true"
@@ -132,7 +140,7 @@
 							</div>
 						</div>
 
-						<div class="row" style="padding-right: 15px;">
+						<div class="row" style="padding: 15px;">
 							<textarea class="col col-2 text-dark" rows="1" readOnly="true" aria-label="With textarea"
 								style="border: none; box-shadow: none; resize: none; background-color: white; text-align: center;">Height (cm)</textarea>
 							<textarea class="col col-2 text-dark remove-target" rows="1" readOnly="true"
@@ -144,11 +152,10 @@
 								aria-label="With textarea" id="hPulse"
 								style="border: 1px solid black; box-shadow: none; resize: none; background-color: white; text-align: center;"></textarea>
 							<textarea class="col col-2 text-dark" rows="1" readOnly="true" aria-label="With textarea"
-								style="border: none; box-shadow: none; resize: none; background-color: white; text-align: center;">Blood Pressure (mmHg)</textarea>
-							<textarea class="col col-2 text-dark remove-target" rows="1" readOnly="true"
-								aria-label="With textarea" id="hPressure"
+								style="border: none; box-shadow: none; resize: none; background-color: white; text-align: center;">BMI (kg/m2)</textarea>
+							<textarea class="col col-2 text-dark remove-target" rows="1" readOnly="true" `
+								aria-label="With textarea" id="bmi"
 								style="border: 1px solid black; box-shadow: none; resize: none; background-color: white; text-align: center;"></textarea>
-
 						</div>
 						<h3>Examination</h3>
 						<h4>Diagnose</h4>
