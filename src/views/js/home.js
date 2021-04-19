@@ -1,11 +1,10 @@
-// $('#btnOpenAddMedModal').on('click', function () {
-//     console.log('Add Med Click');
-
-// });
-
 var doctorInfo;
 var doctorLocation;
 var doctorBuilding;
+var today = new Date();
+var dd = String(today.getDate()).padStart(2, "0");
+var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+var yyyy = today.getFullYear();
 
 // Set scrolling for queue and form
 
@@ -37,12 +36,13 @@ $("#rightExamForm").css(
 		10
 );
 
+// On screen events
+
 $("#btnConfirmPresModal").click(function (e) {
 	e.preventDefault();
 	var decision = confirm("ARE YOU SURE?");
 	if (decision) {
 		$("#presConfirmModal").modal("hide");
-		// console.log($("#hdnNewPatientFlag").val());
 		if ($("#hdnNewPatientFlag").val() == 1) {
 			$("#addPatientModal").modal({
 				backdrop: "static",
@@ -62,6 +62,15 @@ $("#btnReloadQueue").click(function (e) {
 			loadExamForm(patientInfo[0]);
 		}
 	});
+});
+
+$("#btnShowExamHistory").click(function (e) {
+	e.preventDefault();
+	for (let index = 0; index < 1; index++) {
+		$("#examHistoryContainer").loadTemplate($("#historyTemplate"), {
+			examDate: mm + "/" + dd + "/" + yyyy,
+		});
+	}
 });
 
 $("#btnNoPresModal").click(function (e) {
@@ -97,7 +106,6 @@ $("#btnNoPresModal").click(function (e) {
 		});
 	}
 });
-// On screen events
 
 $("#btnCancelMedModal").on("click", function () {
 	$("#medModal").modal("hide");
@@ -187,6 +195,7 @@ $("#btnSubmitExamForm").on("click", function () {
 		phoneNo: $("#phoneNo").val().trim(),
 		address: $("#address").val().trim(),
 		diagnose: $("#diagnose").val().trim(),
+		examDate: yyyy + "-" + mm + "-" + dd,
 		nextExamDate: $("#nextExamDate").val().trim(),
 		roomCd: $("#roomCd").val().trim(),
 		buildingCd: $("#buildingCd").val().trim(),
@@ -427,21 +436,14 @@ function loadPatientInfo({
 	// $("#fNameModal").val(fname);
 }
 
-function loadSensorInfo({
-	weight,
-	temper,
-	spo2,
-	height,
-	hPulse,
-	hPressure,
-} = {}) {
+function loadSensorInfo({ weight, temper, spo2, height, hPulse, bmi } = {}) {
 	// console.log(sensorInfo);
 	$("#weight").val(weight);
 	$("#temper").val(temper);
 	$("#spo2").val(spo2);
 	$("#height").val(height);
 	$("#hPulse").val(hPulse);
-	$("#hPressure").val(hPressure);
+	$("#bmi").val(bmi);
 }
 
 function loadExamForm(data) {
@@ -471,23 +473,5 @@ function convertLastName(lname) {
 }
 
 function showDate() {
-	var today = new Date();
-	var dd = String(today.getDate()).padStart(2, "0");
-	var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
-	var yyyy = today.getFullYear();
-
-	today = mm + "/" + dd + "/" + yyyy;
-
-	// console.log(today);
-
-	$("#currentDate").val(today);
+	$("#currentDate").val(mm + "/" + dd + "/" + yyyy);
 }
-
-// myString = "Hello World";
-// temp = [...myString];
-// array = [];
-// temp.forEach((e) => {
-// 	if (e == e.toUpperCase()) {
-// 		console.log(e);
-// 	}
-// });
