@@ -127,13 +127,13 @@ app.get("/error", (req, res) => {
 });
 
 app.get("/manage", (req, res) => {
-	// if (req.session.loggedin && req.session.role == ADMIN) {
+	if (req.session.loggedin && req.session.role == ADMIN) {
 	res.render("manage", {
 		title: "Manage",
 	});
-	// } else {
-	// 	res.redirect("error");
-	// }
+	} else {
+		res.redirect("error");
+	}
 });
 
 app.get("/init-add-doctor", (req, res) => {
