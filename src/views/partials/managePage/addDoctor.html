@@ -1,0 +1,99 @@
+<div class="row justify-content-center">
+    <label style="font-size: 25px;">Add Doctor</label>
+</div>
+
+<br>
+
+<div class="row justify-content-center align-items-center form-group">
+    <label for="fName" class="col col-2" style="margin: 0;">First Name</label>
+    <input class="col col-10" id="fName" class="form-control" type="text">
+</div>
+
+
+<div class="row justify-content-center form-group align-items-center">
+    <label for="lName" class="col col-2" style="margin: 0;">Last Name</label>
+    <input class="col col-10" id="lName" class="form-control" type="text">
+</div>
+
+<div class="row form-group align-items-center">
+    <label for="birthDate" class="col col-2" style="margin: 0;">Date of Birth</label>
+    <input class="col col-3" type="date" id="birthDate">
+
+    <div class="col col-1"></div>
+
+    <div class="col col-4">
+        <div class="row align-items-center">
+            <label for="gender" class="col" style="margin: 0;">Gender</label>
+            <select class="col custom-select" name="gender" id="gender" required>
+                <option value="m">Male</option>
+                <option value="f">Female</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-center align-items-center form-group">
+    <label for="birthDate" class="col col-2" style="margin: 0;">Address</label>
+    <input class="col col-10" id="addr" class="form-control" type="text">
+</div>
+
+
+<div class="row justify-content-center align-items-center form-group">
+    <label for="phone" class="col col-2" style="margin: 0;">Phone number</label>
+    <input class="col col-3" id="phone" class="form-control" type="text">
+
+    <div class="col col-1"></div>
+
+    <label for="spec" class="col col-2" style="margin: 0;">Specialties</label>
+    <input class="col col-3" id="spec" class="form-control" type="text">
+
+    <div class="col col-1"></div>
+</div>
+
+<div class="row justify-content-center align-items-center form-group">
+    <label for="ssn" class="col col-2" style="margin: 0;">CMND</label>
+    <input class="col col-3" id="ssn" class="form-control" type="text">
+
+    <div class="col col-1"></div>
+
+    <label for="date" class="col col-2" style="margin: 0;">Graduation Date</label>
+    <input class="col col-3" type="date" id="gradTime">
+
+    <div class="col col-1"></div>
+</div>
+
+<div class="row justify-content-center align-items-center form-group">
+    <label for="username" class="col col-2" style="margin: 0;">Username</label>
+    <input class="col col-3" id="username" class="form-control" type="text">
+
+    <div class="col col-1"></div>
+
+    <label for="password" class="col col-2" style="margin: 0;">Password</label>
+    <input class="col col-3" id="password" class="form-control" type="password">
+
+    <div class="col col-1"></div>
+</div>
+
+<div class="row justify-content-center align-items-center form-group">
+    <label for="email" class="col col-2" style="margin: 0;">Email</label>
+    <input class="col col-10" id="email" class="form-control" type="text">
+</div>
+
+<div class="row align-items-center form-group">
+    <label for="hos" class="col col-2" style="margin: 0;">Hospital</label>
+    <select class="col col-3 custom-select" name="hosList" id="hos" required>
+        <option></option>
+    </select>
+
+    <div class="col col-1"></div>
+
+    <label for="dep" class="col col-2" style="margin: 0;">Department</label>
+    <select class="col col-3 custom-select" name="depList" id="dep" required>
+        <option></option>
+    </select>
+</div>
+
+<div class="row justify-content-center">
+    <button id="submitBtn" type="button" class="btn btn-dark btn-block"
+        style="width:150px; text-align:center;">Add</button>
+</div>
