@@ -16,3 +16,7 @@ html {
 .btn:focus {
 	box-shadow: none;
 }
+
+.custom-input:focus-visible {
+	outline: none;
+}

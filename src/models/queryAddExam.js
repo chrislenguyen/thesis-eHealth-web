@@ -2,7 +2,7 @@ const queryForObject = require("./queryForObject");
 const mysql = require("mysql");
 
 const queryAddExam = (
-	{ pId, nextExamDate, diagnose, sId, docId, hosId } = {},
+	{ pId, nextExamDate, diagnose, sId, docId, hosId, examDate } = {},
 	callback
 ) => {
 	var query =
@@ -12,6 +12,9 @@ const queryAddExam = (
 		mysql.escape(pId) +
 		" ," +
 		"@Exam_Date = " +
+		mysql.escape(examDate) +
+		" ," +
+		"@Next_Exam_Date = " +
 		mysql.escape(nextExamDate) +
 		" ," +
 		"@Diagnosis = " +

@@ -3,7 +3,6 @@ const mysql = require("mysql");
 
 const queryPatientQueue = (buildingCd, roomCd, callback) => {
 	const query =
-		// "SET TEXTSIZE 2147483647 " +
 		"SELECT " +
 		"pId, " +
 		"orderNo, " +
@@ -21,7 +20,7 @@ const queryPatientQueue = (buildingCd, roomCd, callback) => {
 		"sensorInfo.Temperature temper," +
 		"sensorInfo.Height height," +
 		"sensorInfo.Heart_Pulse hPulse, " +
-		"sensorInfo.Blood_Pressure hPressure " +
+		"sensorInfo.BMI bmi " +
 		"FROM " +
 		"( " +
 		"SELECT " +
