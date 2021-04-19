@@ -1,0 +1,32 @@
+<div class="modal fade" id="medModal" tabindex="-1" aria-labelledby="medModal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="medModal">Add Medication</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="medNameModal" class="col-form-label remove-target">Name:</label>
+                        <input type="text" class="form-control" id="medNameModal">
+                    </div>
+                    <div class="form-group">
+                        <label for="medQuantityModal" class="col-form-label remove-target">Quantity:</label>
+                        <input type="number" class="form-control" id="medQuantityModal">
+                    </div>
+                    <div class="form-group">
+                        <label for="medDescModal" class="col-form-label remove-target">Description:</label>
+                        <input type="text" class="form-control" id="medDescModal">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal" id="btnCancelMedModal">Cancel</button>
+                <button type="button" class="btn btn-dark" id="btnAddMed">Add</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,68 @@
+<div class="modal fade" id="addPatientModal" tabindex="-1" aria-labelledby="addPatientModal" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addPatientModal">Add Patient</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row form-group">
+                        <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true"
+                            aria-label="With textarea"
+                            style="border: none; box-shadow: none; resize: none; background-color: white; text-align: left;">First name</textarea>
+                        <input class="col col-3" id="fNameModal" class="form-control remove-target" type="text">
+
+                        {{!-- <div class="col col-1"></div> --}}
+
+                        <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true"
+                            aria-label="With textarea"
+                            style="border: none; box-shadow: none; resize: none; background-color: white; text-align: right;">Last name</textarea>
+                        <input class="col col-4" id="lNameModal" class="form-control remove-target" type="text">
+                    </div>
+                    <div class="row form-group">
+                        <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true"
+                            aria-label="With textarea"
+                            style="border: none; box-shadow: none; resize: none; background-color: white;">Date of birth</textarea>
+                        <input class="col col-3 remove-target" type="date" id="dobModal">
+
+                        <div class="col col-1"></div>
+
+                        <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true"
+                            aria-label="With textarea"
+                            style="border: none; box-shadow: none; resize: none; background-color: white; text-align: left;">Gender</textarea>
+                        <select class="col col-3 custom-select" name="gender" id="genderModal" required>
+                            <option value="m">Male</option>
+                            <option value="f">Female</option>
+                        </select>
+                    </div>
+                    <div class="row form-group">
+                        <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true"
+                            aria-label="With textarea"
+                            style="border: none; box-shadow: none; resize: none; background-color: white;">CMND</textarea>
+                        <input class="col col-3" id="ssnModal" class="form-control remove-target" type="number">
+
+                        <div class="col col-1"></div>
+
+                        <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true"
+                            aria-label="With textarea"
+                            style="border: none; box-shadow: none; resize: none; background-color: white; text-align: left;">Phone</textarea>
+                        <input class="col col-3" id="phoneNoModal" class="form-control remove-target" type="number">
+                    </div>
+                    <div class="row form-group">
+                        <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true"
+                            aria-label="With textarea"
+                            style="border: none; box-shadow: none; resize: none; background-color: white; text-align: left;">Address</textarea>
+                        <input class="col col-9" id="addressModal" class="form-control remove-target" type="text">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="btnCancelPatientModal">Cancel</button>
+                <button type="button" class="btn btn-dark" id="btnAddPatient">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
