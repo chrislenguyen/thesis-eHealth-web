@@ -6,18 +6,20 @@ const bodyParser = require("body-parser");
 
 const authenticate = require("./controllers/authenticate");
 const getInitAddDoctor = require("./controllers/getInitAddDoctor");
+const getInitAddDevice = require("./controllers/getInitAddDevice");
 const addDoctor = require("./controllers/addDoctor");
 const getInitDoctorInfo = require("./controllers/getInitDoctorInfo");
 const getPatientQueue = require("./controllers/getPatientQueue");
 const addExam = require("./controllers/addExam");
 const deleteQueue = require("./controllers/deleteQueue");
 const deleteAbsPatient = require("./controllers/deleteAbsPatient");
+const addDevice = require("./controllers/addDevice");
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 const viewPath = path.join(__dirname, "../src/views");
-const partialsPath = path.join(__dirname, "../templates/partials");
+const partialsPath = path.join(__dirname, "../src/views/partials");
 
 const CONNECTION_ERROR = 1;
 const ABSENT = "1";
@@ -86,9 +88,15 @@ app.post("/login-data", (req, res) => {
 	);
 });
 
-app.post("/add-doctor-data", (req, res) => {
-	addDoctor(req.body, (err, res) => {});
-	res.send();
+app.post("/add-doctor", (req, res) => {
+	addDoctor(req.body, (err, res) => {
+		res.send(res);
+	});
+});
+
+app.post("/add-device", (req, res) => {
+	// console.log(req.body);
+	addDevice(req.body, (err, res) => {});
 });
 
 app.get("", (req, res) => {
@@ -119,17 +127,23 @@ app.get("/error", (req, res) => {
 });
 
 app.get("/manage", (req, res) => {
-	if (req.session.loggedin) {
-		res.render("manage", {
-			title: "Manage",
-		});
-	} else {
-		res.redirect("error");
-	}
+	// if (req.session.loggedin && req.session.role == ADMIN) {
+	res.render("manage", {
+		title: "Manage",
+	});
+	// } else {
+	// 	res.redirect("error");
+	// }
 });
 
 app.get("/init-add-doctor", (req, res) => {
 	getInitAddDoctor((err, data) => {
+		res.send(data);
+	});
+});
+
+app.get("/init-add-device", (req, res) => {
+	getInitAddDevice((err, data) => {
 		res.send(data);
 	});
 });
