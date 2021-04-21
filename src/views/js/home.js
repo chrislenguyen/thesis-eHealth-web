@@ -64,15 +64,6 @@ $("#btnReloadQueue").click(function (e) {
 	});
 });
 
-$("#btnShowExamHistory").click(function (e) {
-	e.preventDefault();
-	for (let index = 0; index < 1; index++) {
-		$("#examHistoryContainer").loadTemplate($("#historyTemplate"), {
-			examDate: mm + "/" + dd + "/" + yyyy,
-		});
-	}
-});
-
 $("#btnNoPresModal").click(function (e) {
 	e.preventDefault();
 	var decision = confirm("ARE YOU SURE?");
