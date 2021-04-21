@@ -1,5 +1,3 @@
-
-
 $("#optUser").click(function (e) {
 	e.preventDefault();
 	hideAllOption();
@@ -94,6 +92,10 @@ $("#btnSearchModDocForm").click(function (e) {
 	$("#modDocInfoForm").show();
 });
 
+function closeSuccessDialog() {
+	$("#successDialog").hide();
+}
+
 function hideAllOption() {
 	$(".optionBar").hide();
 	$(".optionBar .active").removeClass("active");
@@ -102,3 +104,7 @@ function hideAllOption() {
 function hideAllForm() {
 	$("form").hide();
 }
+
+// function debug() {
+// 	$("#successDialog").show();
+// }

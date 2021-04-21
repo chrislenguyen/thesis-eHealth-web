@@ -15,3 +15,5 @@ const addDeviceIotHub = (deviceId, callback) => {
 		callback(1);
 	});
 };
+
+module.exports = addDeviceIotHub;

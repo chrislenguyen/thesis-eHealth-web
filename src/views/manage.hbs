@@ -11,7 +11,7 @@
     </div>
     {{!-- <div class="row" style="padding-top: 20px;">
         <div class="col-10"></div>
-        <button type="button" name="" id="hideAllForm" class="btn btn-dark col-1">Hide All</button>
+        <button type="button" name="" id="hideAllForm" class="btn btn-dark col-1" onclick="debug()">Debug</button>
         <div class="col-1"></div>
     </div> --}}
 
@@ -251,6 +251,12 @@
         <form id="addDeviceForm" style="display: none;" class="p-5 mb-2 bg-white text-dark">
             {{> managePage/addDevice}}
         </form>
+        <div class="alert alert-success" role="alert" id="successDialog" style="display: none;">
+            Add successfully!
+            <button type="button" class="close" aria-label="Close" onclick="closeSuccessDialog()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
     </div>
 </body>
 <script src="./js/addDoctor.js"></script>

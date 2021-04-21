@@ -49,7 +49,9 @@ $("#btnAddDeviceForm").click(function (e) {
 		data: data,
 		dataType: "json",
 		success: function (res) {
-			console.log(res);
+			if (res.status == 1) {
+				$("#successDialog").show();
+			}
 		},
 	});
 });

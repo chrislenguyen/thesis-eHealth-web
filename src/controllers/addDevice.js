@@ -13,8 +13,10 @@ const addDevice = ({ hosId, buildingCd }, callback) => {
 			deviceCd: data[0].deviceCd,
 		};
 		// console.log(data);
-		queryAddDevice(data, ({ deviceId }) => {
+		queryAddDevice(data, (deviceId) => {
+			// console.log(deviceId);
 			addDeviceIotHub(deviceId, (res) => {
+				// console.log(res);
 				callback(res);
 			});
 		});
