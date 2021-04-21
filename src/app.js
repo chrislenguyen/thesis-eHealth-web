@@ -14,6 +14,7 @@ const addExam = require("./controllers/addExam");
 const deleteQueue = require("./controllers/deleteQueue");
 const deleteAbsPatient = require("./controllers/deleteAbsPatient");
 const addDevice = require("./controllers/addDevice");
+const getExamHistory = require("./controllers/getExamHistory");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -169,6 +170,20 @@ app.get("/init-doctor-info", (req, res) => {
 			req.session.hosId = data.hospital[0].hosId;
 			res.send(data);
 		}
+	});
+});
+
+app.get("/get-exam-history", (req, res) => {
+	if (req.query.newPatientFlag == 1) {
+		return res.send({
+			msg: "NEW PATIENT, NO RECORD AVAILABLE",
+		});
+	}
+	patientInfo = {
+		pId: req.session.pId,
+	};
+	getExamHistory(patientInfo, (examHistory) => {
+		res.send({ examHistory });
 	});
 });
 
