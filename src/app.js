@@ -39,9 +39,6 @@ const errorValidating = JSON.stringify({
 	error: INVALID_LOGIN,
 	data: undefined,
 });
-const loggedOutSuccess = JSON.stringify({
-	data: LOG_OUT,
-});
 
 app.set("view engine", "hbs");
 app.set("views", viewPath);
@@ -221,7 +218,7 @@ app.post("/add-exam-info", (req, res) => {
 	console.log(examData);
 	// Handle throw exception when out of session
 	addExam(examData, (procRes) => {
-		console.log(procRes);
+		// console.log(procRes);
 		//TODO
 		// Handle fail add exam
 		res.send({

@@ -15,7 +15,7 @@ const queryAddExam = (
 		mysql.escape(examDate) +
 		" ," +
 		"@Next_Exam_Date = " +
-		mysql.escape(nextExamDate) +
+		(nextExamDate ? mysql.escape(nextExamDate) : "null") +
 		" ," +
 		"@Diagnosis = " +
 		mysql.escape(diagnose) +

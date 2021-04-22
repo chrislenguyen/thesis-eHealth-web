@@ -56,8 +56,10 @@ $("#btnReloadQueue").click(function (e) {
 	e.preventDefault();
 	getPatientInfo(data, (patientInfo) => {
 		if (patientInfo.noDataFlag) {
+			$("#rightExamForm *").prop("disabled", true);
 			$("#btnReloadQueue").show();
 		} else {
+			$("#rightExamForm *").prop("disabled", false);
 			loadQueue(patientInfo);
 			loadExamForm(patientInfo[0]);
 		}
@@ -84,8 +86,10 @@ $("#btnNoPresModal").click(function (e) {
 				if (res.delPatientRes == 1 || res.delQueueRes == 1) {
 					getPatientInfo(data, (patientInfo) => {
 						if (patientInfo.noDataFlag) {
+							$("#rightExamForm *").prop("disabled", true);
 							$("#btnReloadQueue").show();
 						} else {
+							$("#rightExamForm *").prop("disabled", false);
 							loadQueue(patientInfo);
 							loadExamForm(patientInfo[0]);
 						}
@@ -193,31 +197,35 @@ $("#btnSubmitExamForm").on("click", function () {
 		med,
 	};
 	// console.log(data);
-	$.ajax({
-		type: "post",
-		url: "/add-exam-info",
-		data,
-		dataType: "json",
-		success: function (res) {
-			console.log(res);
-			if (res.procRes == 1) {
-				getPatientInfo(data, (patientInfo) => {
-					if (patientInfo.noDataFlag) {
-						$("#btnReloadQueue").show();
-					} else {
-						loadQueue(patientInfo);
-						loadExamForm(patientInfo[0]);
-					}
-				});
-				clearInput();
-				clearQueue();
-			} else {
-				// TODO
-				// Handle submit exam form fail
-			}
-			// console.log(response);
-		},
-	});
+	var decision = confirm("ARE YOU SURE?");
+	if (decision) {
+		$.ajax({
+			type: "post",
+			url: "/add-exam-info",
+			data,
+			dataType: "json",
+			success: function (res) {
+				console.log(res);
+				if (res.procRes == 1) {
+					getPatientInfo(data, (patientInfo) => {
+						if (patientInfo.noDataFlag) {
+							$("#btnReloadQueue").show();
+							$("#rightExamForm *").prop("disabled", true);
+						} else {
+							$("#rightExamForm *").prop("disabled", false);
+							loadQueue(patientInfo);
+							loadExamForm(patientInfo[0]);
+						}
+					});
+					clearInput();
+					clearQueue();
+				} else {
+					// TODO
+					// Handle submit exam form fail
+				}
+			},
+		});
+	}
 });
 
 $("#selBuildingCd").on("change", function () {
@@ -342,8 +350,10 @@ function changeRoom(buildingCd, roomCd) {
 	data = { buildingCd, roomCd };
 	getPatientInfo(data, (response) => {
 		if (response.noDataFlag) {
+			$("#rightExamForm *").prop("disabled", true);
 			$("#btnReloadQueue").show();
 		} else {
+			$("#rightExamForm *").prop("disabled", false);
 			loadQueue(response);
 			loadExamForm(response[0]);
 		}
