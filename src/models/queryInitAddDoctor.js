@@ -1,16 +1,23 @@
 const queryForObject = require("./queryForObject");
+const fs = require("fs");
 
 const queryInitAddDoctor = (callback) => {
-	const query =
-		"SELECT HOSPITAL.Hospital_ID as hosId, HOSPITAL.Hospital_Name as hosName, DEPARTMENT.Dep_ID as depId, DEPARTMENT.Dep_Name as depName FROM HOSPITAL INNER JOIN DEPARTMENT as department ON HOSPITAL.Hospital_ID = DEPARTMENT.Hospital_ID FOR JSON AUTO;";
-
-	queryForObject(query, (err, data) => {
-		if (err) {
-			callback(err, undefined);
-		} else {
-			callback(undefined, data);
+	fs.readFile(
+		"src/models/sql/queryHospitalDepartment.sql",
+		"utf8",
+		(loadFileErr, query) => {
+			if (loadFileErr) {
+				return console.log(loadFileErr);
+			}
+			queryForObject(query, (err, data) => {
+				if (err) {
+					callback(err, undefined);
+				} else {
+					callback(undefined, data);
+				}
+			});
 		}
-	});
+	);
 };
 
 module.exports = queryInitAddDoctor;
