@@ -15,6 +15,8 @@ const deleteQueue = require("./controllers/deleteQueue");
 const deleteAbsPatient = require("./controllers/deleteAbsPatient");
 const addDevice = require("./controllers/addDevice");
 const getExamHistory = require("./controllers/getExamHistory");
+const addHospital = require("./controllers/addHospital");
+const addBuilding = require("./controllers/addBuilding");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -97,6 +99,23 @@ app.post("/add-device", (req, res) => {
 		// console.log(status);
 		res.send({ status });
 	});
+});
+
+app.post("/add-hospital", (req, res) => {
+	// console.log(req.body);
+	addHospital(req.body, (status) => {
+		res.send({ status });
+	});
+});
+
+app.post("/add-building", (req, res) => {
+	addBuilding(req.body, (status) => {
+		res.send({ status });
+	});
+});
+
+app.post("/del-building", (req, res) => {
+	console.log(req.body);
 });
 
 app.get("", (req, res) => {

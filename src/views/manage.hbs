@@ -15,11 +15,11 @@
         <div class="col-1"></div>
     </div> --}}
 
-    <div class="container">
-        <div class="row justify-content-center align-items-center h-100" id="optLvl1">
+    <div class="container" style="padding-bottom: 50px;">
+        <div class="row justify-content-center align-items-center h-100 optTop" id="optLvl1">
             <div class="btn-group btn-group-toggle" data-toggle="buttons" style="padding-top: 50px;">
-                <label class="btn btn-outline-dark" id="optUser">
-                    <input type="radio" name="options" value="1"> User
+                <label class="btn btn-outline-dark">
+                    <input type="radio" name="options" id="optUser" value="1"> User
                 </label>
                 <label class="btn btn-outline-dark">
                     <input type="radio" name="options" id="optHospital" value="2"> Hospital
@@ -47,19 +47,37 @@
             </div>
         </div>
 
+        <form action="" id='changePassForm' style="display: none;" class="p-5 mb-2 bg-white text-dark">
+            {{> managePage/changePassword}}
+        </form>
+
+        <form id="addDoctorForm" style="display: none;" class="form-group p-5 mb-2 bg-white text-dark">
+            {{> managePage/addDoctor}}
+        </form>
+
+        <form id='modDocForm' style="display: none;" class="py-3 my-2 bg-white text-dark">
+            <div class="row form-group justify-content-md-center">
+                <label style="font-size: 25px;">Modify Doctor</label>
+            </div>
+
+            <br>
+
+            {{> managePage/searchDoctor}}
+        </form>
+
         <div class="row justify-content-center optionBar" id="optHosExt" style="display: none;">
             <div class="btn-group btn-group-toggle" data-toggle="buttons" style="padding-top: 20px;">
                 <label class="btn btn-outline-dark">
-                    <input type="radio" name="options" id="modHos" value="1"> Modify Hospital
+                    <input type="radio" name="options" id="optHos" value="1"> Hospital
                 </label>
                 <label class="btn btn-outline-dark">
-                    <input type="radio" name="options" id="modDept" value="2"> Modify Department
+                    <input type="radio" name="options" id="optBuilding" value="2"> Building
                 </label>
                 <label class="btn btn-outline-dark">
-                    <input type="radio" name="options" id="modBR" value="3"> Modify Building/Room
+                    <input type="radio" name="options" id="optRoom" value="3"> Room
                 </label>
                 <label class="btn btn-outline-dark">
-                    <input type="radio" name="options" id="assignRoom" value="3"> Assign Room (for Department)
+                    <input type="radio" name="options" id="optDept" value="4"> Department
                 </label>
             </div>
         </div>
@@ -78,180 +96,67 @@
             </div>
         </div>
 
-        <form id="addDoctorForm" style="display: none;" class="form-group p-5 mb-2 bg-white text-dark">
-            {{> managePage/addDoctor}}
+        <form id="addDeviceForm" style="display: none;" class="p-5 mb-2 bg-white text-dark">
+            {{> managePage/addDevice}}
         </form>
 
-        <form action="" id='changePassForm' style="display: none;" class="p-5 mb-2 bg-white text-dark">
-            {{> managePage/changePassword}}
-        </form>
-
-        <form id='modDocForm' style="display: none;" class="py-3 my-2 bg-white text-dark">
-            <div class="row form-group justify-content-md-center">
-                <label style="font-size: 25px;">Modify Doctor</label>
-            </div>
-
-            <br>
-
-            <div class="form-group row">
-                <div class="col col-1"></div>
-
-                <div class="col col-10">
-                    <div class="form-group row">
-                        <label for="docUsername" class="col col-2">Username</label>
-                        <input name="name" class="form-control col col-3" type="text" id='docUsername'>
-                        <div class="col-1">
-                        </div>
-
-                        <label for="docUsername" class="col col-2">Name</label>
-                        <input name="name" class="form-control col col-3" type="text" id='docName'>
-                        <div class="col-1">
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="docUsername" class="col col-2">CMND</label>
-                        <input name="name" class="form-control col col-3" type="number" id='docSSN'>
-                        <div class="col-1">
-                        </div>
-
-                        <label for="docUsername" class="col col-2">Email</label>
-                        <input name="name" class="form-control col col-3" type=" text" id='docMail'>
-                        <div class="col-1">
-                        </div>
-                    </div>
-
-                    <div class="row justify-content-md-center">
-                        <button id="btnSearchModDocForm" type="button" class="btn btn-dark btn-block"
-                            style="width:150px; text-align:center;">Search</button>
-                    </div>
-                </div>
-            </div>
-
-            <div id="modDocInfoForm" style="display: none;" class="form-group py-5 my-2 bg-white text-dark">
-
-                <div class="row form-group justify-content-md-center">
-                    <label style="font-size: 25px;">Doctor Information</label>
-                </div>
-                <br>
-
-                <div class="row justify-content-md-center form-group">
-                    <label for="fName" class="col col-2">First Name</label>
-                    <input class="col col-10" id="modFName" class="form-control" type="text">
-                </div>
-
-                <div class="row justify-content-md-center form-group">
-                    <label for="lName" class="col col-2">Last Name</label>
-                    <input class="col col-10" id="modLName" class="form-control" type="text">
-                </div>
-
-                <div class="row form-group">
-                    <label for="birthDate" class="col col-2">Date of Birth</label>
-                    <input class="col col-3" type="date" id="modBirthDate">
-                    <div class="col col-1"></div>
-                    <div class="col col-4">
-                        <div class="row align-items-center">
-                            <label for="gender" class="col" style="margin: 0;">Gender</label>
-                            <select class="col custom-select" name="gender" id="modGender" required>
-                                <option value="m">Male</option>
-                                <option value="f">Female</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="row justify-content-md-center form-group">
-                    <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true"
-                        aria-label="With textarea"
-                        style="border: none; box-shadow: none; resize: none; background-color: white;">Address</textarea>
-                    <input class="col col-10" id="modAddr" class="form-control" type="text">
-                </div>
-
-
-                <div class="row justify-content-md-center form-group">
-                    <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true"
-                        aria-label="With textarea"
-                        style="border: none; box-shadow: none; resize: none; background-color: white;">Phone number</textarea>
-                    <input class="col col-3" id="modPhoneNo" class="form-control" type="text">
-
-                    <div class="col col-1"></div>
-
-                    <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true"
-                        aria-label="With textarea"
-                        style="border: none; box-shadow: none; resize: none; background-color: white;">Specialties</textarea>
-                    <input class="col col-3" id="modSpec" class="form-control" type="text">
-
-                    <div class="col col-1"></div>
-                </div>
-
-                <div class="row justify-content-md-center form-group">
-                    <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true"
-                        aria-label="With textarea"
-                        style="border: none; box-shadow: none; resize: none; background-color: white;">CMND</textarea>
-                    <input class="col col-3" id="modSsn" class="form-control" type="text">
-
-                    <div class="col col-1"></div>
-
-                    <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true"
-                        aria-label="With textarea"
-                        style="border: none; box-shadow: none; resize: none; background-color: white; text-align: left;">Year_Graduated</textarea>
-                    <input class="col col-3" type="date" id="modGradTime">
-
-                    <div class="col col-1"></div>
-                </div>
-                <div class="row justify-content-md-center form-group">
-                    <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true"
-                        aria-label="With textarea"
-                        style="border: none; box-shadow: none; resize: none; background-color: white;">Username</textarea>
-                    <input class="col col-3" id="modDocUsername" class="form-control" type="text">
-
-                    <div class="col col-1"></div>
-
-                    <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true"
-                        aria-label="With textarea"
-                        style="border: none; box-shadow: none; resize: none; background-color: white;">Email</textarea>
-                    <input class="col col-3" id="docEmail" class="form-control" type="text">
-
-                    <div class="col col-1"></div>
-                </div>
-                <div class="row form-group">
-                    <div class="col col-1"></div>
-                    <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true"
-                        aria-label="With textarea"
-                        style="border: none; box-shadow: none; resize: none; background-color: white; text-align: right;">Hospital</textarea>
-                    <select class="col col-2 custom-select" name="hosList" id="modDocHosList" required>
-                        <option></option>
-                    </select>
-
-                    <div class="col col-1"></div>
-
-                    <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true"
-                        aria-label="With textarea"
-                        style="border: none; box-shadow: none; resize: none; background-color: white; text-align: right;">Department</textarea>
-                    <select class="col col-2 custom-select" name="depList" id="modDocDepList" required>
-                        <option></option>
-                    </select>
-                </div>
-                <br>
-                <div class="row justify-content-md-center">
-                    <button id="submitBtnModDocForm" type="button" class="btn btn-dark btn-block"
-                        style="width: 300px; text-align:center;">Update</button>
-                </div>
-                <br>
-                <div class="row justify-content-md-center">
-                    <button id="btnChangeStatusModDocForm" type="button" class="btn btn-danger btn-block"
-                        style="width: 300px; text-align:center;">Activate/Deactivate</button>
-                </div>
-            </div>
-        </form>
         <form id="modDeviceForm" style="display: none;" class="p-5 mb-2 bg-white text-dark">
             {{> managePage/deviceModifySec}}
         </form>
 
-        <form id="addDeviceForm" style="display: none;" class="p-5 mb-2 bg-white text-dark">
-            {{> managePage/addDevice}}
+        <div class="row justify-content-center extOptionBar" id="optHExt" style="display: none;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons" style="padding-top: 20px;">
+                <label class="btn btn-outline-dark">
+                    <input type="radio" name="options" id="addHos" value="1"> Add Hospital
+                </label>
+                <label class="btn btn-outline-dark">
+                    <input type="radio" name="options" id="modHos" value="2"> Modify Hospital
+                </label>
+            </div>
+        </div>
+
+        <form id="addHosForm" style="display: none;" class="p-5 mb-2 bg-white text-dark">
+            {{> managePage/addHospital}}
         </form>
-        <div class="alert alert-success" role="alert" id="successDialog" style="display: none;">
+
+        <div class="row justify-content-center extOptionBar" id="optBuildingExt" style="display: none;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons" style="padding-top: 20px;">
+                <label class="btn btn-outline-dark">
+                    <input type="radio" name="options" id="addBuilding" value="1"> Add Building
+                </label>
+                <label class="btn btn-outline-dark">
+                    <input type="radio" name="options" id="modBuilding" value="2"> Modify Building
+                </label>
+            </div>
+        </div>
+
+        <form id="addBuildingForm" style="display: none;" class="p-5 mb-2 bg-white text-dark">
+            {{> managePage/addBuilding}}
+        </form>
+
+        <div class="row justify-content-center extOptionBar" id="optRoomExt" style="display: none;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons" style="padding-top: 20px;">
+                <label class="btn btn-outline-dark">
+                    <input type="radio" name="options" id="addRoom" value="1"> Add Room
+                </label>
+                <label class="btn btn-outline-dark">
+                    <input type="radio" name="options" id="modRoom" value="2"> Modify Room
+                </label>
+            </div>
+        </div>
+
+        <div class="row justify-content-center extOptionBar" id="optDeptExt" style="display: none;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons" style="padding-top: 20px;">
+                <label class="btn btn-outline-dark">
+                    <input type="radio" name="options" id="addDept" value="1"> Add Dept
+                </label>
+                <label class="btn btn-outline-dark">
+                    <input type="radio" name="options" id="modDept" value="2"> Modify Dept
+                </label>
+            </div>
+        </div>
+
+        <div class="alert alert-success" role="alert" id="addSuccessDialog" style="display: none;">
             Add successfully!
             <button type="button" class="close" aria-label="Close" onclick="closeSuccessDialog()">
                 <span aria-hidden="true">&times;</span>
@@ -259,6 +164,7 @@
         </div>
     </div>
 </body>
+
 <script src="./js/addDoctor.js"></script>
 <script src="./js/logout.js"></script>
 <script src="./js/managePageCommon.js"></script>
