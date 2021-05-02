@@ -1,9 +1,13 @@
 var changeFlag = false;
 var changeBuilding = [];
 
+$("#addBuildingModal").on("hidden.bs.modal", function () {
+	$(":input", this).val("");
+});
+
 $("#hosListAddBuildingForm").on("change", function () {
+	clearBuildingTable();
 	if (this.value !== "") {
-		clearBuildingTable();
 		$("#addBuildingForm .btn").prop("disabled", false);
 		hosBuildingSelectOption
 			.find((hos) => hos.hosId == this.value)
@@ -12,8 +16,6 @@ $("#hosListAddBuildingForm").on("change", function () {
 					appendBuildingTable(b);
 				}
 			});
-	} else {
-		clearBuildingTable();
 	}
 });
 
@@ -51,6 +53,9 @@ $("#btnAddBuildingModal").click(function (e) {
 				}
 			},
 		});
+	} else {
+		//TODO
+		//Handle no input
 	}
 });
 
