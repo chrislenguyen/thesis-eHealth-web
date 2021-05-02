@@ -1,6 +1,7 @@
 var doctorInfo;
-var doctorLocation;
+var doctorHospitalName;
 var doctorBuilding;
+var doctorRoom;
 var today = new Date();
 var dd = String(today.getDate()).padStart(2, "0");
 var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
@@ -228,30 +229,30 @@ $("#btnSubmitExamForm").on("click", function () {
 	}
 });
 
-$("#selBuildingCd").on("change", function () {
-	if (this.value !== "") {
-		doctorBuilding.forEach((building) => {
-			if (building.bCode == this.value) {
-				$("#selRoomCd").find("option").remove().end();
-				$("#selRoomCd").append(new Option("", ""));
-				building.exRoom.forEach((room) => {
-					$("#selRoomCd").append(
-						new Option(room.exRoomCode, room.exRoomCode)
-					);
-				});
-			}
-		});
-	} else {
-		$("#selRoomCd").find("option").remove().end();
-		$("#selRoomCd").append(new Option("", ""));
-	}
-});
+// $("#selBuildingCd").on("change", function () {
+// 	if (this.value !== "") {
+// 		doctorBuilding.forEach((building) => {
+// 			if (building.bCode == this.value) {
+// 				$("#selRoomCd").find("option").remove().end();
+// 				$("#selRoomCd").append(new Option("", ""));
+// 				building.exRoom.forEach((room) => {
+// 					$("#selRoomCd").append(
+// 						new Option(room.exRoomCode, room.exRoomCode)
+// 					);
+// 				});
+// 			}
+// 		});
+// 	} else {
+// 		$("#selRoomCd").find("option").remove().end();
+// 		$("#selRoomCd").append(new Option("", ""));
+// 	}
+// });
 
-$("#btnSelRoomModal").on("click", function () {
-	if ($("#selBuildingCd").val() !== "" && $("#selRoomCd").val() !== "") {
-		changeRoom($("#selBuildingCd").val(), $("#selRoomCd").val());
-	}
-});
+// $("#btnSelRoomModal").on("click", function () {
+// 	if ($("#selBuildingCd").val() !== "" && $("#selRoomCd").val() !== "") {
+// 		changeRoom($("#selBuildingCd").val(), $("#selRoomCd").val());
+// 	}
+// });
 
 $("#btnAddMed").click(function (e) {
 	e.preventDefault();
@@ -341,24 +342,24 @@ const getPatientInfo = (data, callback) => {
 	});
 };
 
-function changeRoom(buildingCd, roomCd) {
-	clearQueue();
-	clearInput();
-	$("#buildingCd").val(buildingCd);
-	$("#roomCd").val(roomCd);
-	$("#buildingRoomSelectModal").modal("hide");
-	data = { buildingCd, roomCd };
-	getPatientInfo(data, (response) => {
-		if (response.noDataFlag) {
-			$("#rightExamForm *").prop("disabled", true);
-			$("#btnReloadQueue").show();
-		} else {
-			$("#rightExamForm *").prop("disabled", false);
-			loadQueue(response);
-			loadExamForm(response[0]);
-		}
-	});
-}
+// function changeRoom(buildingCd, roomCd) {
+// 	clearQueue();
+// 	clearInput();
+// 	$("#buildingCd").val(buildingCd);
+// 	$("#roomCd").val(roomCd);
+// 	$("#buildingRoomSelectModal").modal("hide");
+// 	data = { buildingCd, roomCd };
+// 	getPatientInfo(data, (response) => {
+// 		if (response.noDataFlag) {
+// 			$("#rightExamForm *").prop("disabled", true);
+// 			$("#btnReloadQueue").show();
+// 		} else {
+// 			$("#rightExamForm *").prop("disabled", false);
+// 			loadQueue(response);
+// 			loadExamForm(response[0]);
+// 		}
+// 	});
+// }
 
 function confirmPatientPresence() {
 	$("#presConfirmModal").modal({
@@ -368,26 +369,35 @@ function confirmPatientPresence() {
 }
 
 function initPage() {
-	$("#buildingRoomSelectModal").modal({
-		backdrop: "static",
-		keyboard: false,
-	});
+	// $("#buildingRoomSelectModal").modal({
+	// 	backdrop: "static",
+	// 	keyboard: false,
+	// });
 	$.ajax({
 		type: "get",
 		url: "/init-doctor-info",
 		// async: false,
 		success: function (res) {
 			doctorInfo = res;
-			doctorLocation = doctorInfo.hospital[0];
-			doctorBuilding = doctorInfo.hospital[0].building;
+			doctorHospitalName = doctorInfo.hosName;
+			doctorBuilding = doctorInfo.bCode;
+			doctorRoom = doctorInfo.exRoomCode;
+			data = { buildingCd: doctorBuilding, roomCd: doctorRoom };
 			$("#selBuildingCd").append(new Option(""));
 			loadDoctorInfo();
-			// console.log(doctorLocation);
+			getPatientInfo(data, (response) => {
+				if (response.noDataFlag) {
+					$("#rightExamForm *").prop("disabled", true);
+					$("#btnReloadQueue").show();
+				} else {
+					$("#rightExamForm *").prop("disabled", false);
+					loadQueue(response);
+					loadExamForm(response[0]);
+				}
+			});
 		},
 	});
-
 	showDate();
-	// console.log(doctorLocation);
 }
 
 function loadDoctorInfo() {
@@ -395,13 +405,9 @@ function loadDoctorInfo() {
 		var doctorName =
 			doctorInfo.fname + " " + convertLastName(doctorInfo.lname);
 		$("#doctorName").val(doctorName);
-		$("#hosName").val(doctorLocation.hosName);
-		doctorBuilding.forEach((building) => {
-			// console.log(building);
-			$("#selBuildingCd").append(
-				new Option(building.bCode, building.bCode)
-			);
-		});
+		$("#hosName").val(doctorHospitalName);
+		$("#buildingCd").val(doctorBuilding);
+		$("#roomCd").val(doctorRoom);
 	} else {
 		// TODO
 		// Handle error
