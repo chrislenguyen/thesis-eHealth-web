@@ -14,11 +14,11 @@ const queryAddHospital = (
 				return console.log(loadFileErr);
 			}
 			query = query.replace(
-				"hosNameAddHosForm",
+				"&hosNameAddHosForm",
 				mysql.escape(hosNameAddHosForm)
 			);
 			query = query.replace(
-				"hosAddressAddHosForm",
+				"&hosAddressAddHosForm",
 				mysql.escape(hosAddressAddHosForm)
 			);
 			queryForObject(query, (err, data) => {

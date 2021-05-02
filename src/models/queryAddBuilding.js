@@ -10,8 +10,9 @@ const queryAddBuilding = ({ hosId, bCd }, callback) => {
 			if (loadFileErr) {
 				return console.log(loadFileErr);
 			}
-			query = query.replace("hosId", mysql.escape(hosId));
-			query = query.replace("bCd", mysql.escape(bCd));
+			console.log(hosId, bCd);
+			query = query.replace("&hosId", mysql.escape(hosId));
+			query = query.replace("&bCd", mysql.escape(bCd));
 			console.log(query);
 			queryForObject(query, (err, data) => {
 				if (err) {

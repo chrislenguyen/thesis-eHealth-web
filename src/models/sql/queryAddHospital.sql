@@ -1,7 +1,7 @@
 DECLARE @RC INT;
 
-EXECUTE @RC = hospital.Add_Hospital @Hospital_Name = NhosNameAddHosForm
+EXECUTE @RC = hospital.Add_Hospital @Hospital_Name = N&hosNameAddHosForm
 ,
-@Location = NhosAddressAddHosForm
+@Location = N&hosAddressAddHosForm
 SELECT
     @RC
