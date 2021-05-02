@@ -1,30 +1,25 @@
 const queryForObject = require("./queryForObject");
 const mysql = require("mysql");
+const fs = require("fs");
 
-const queryAddMed = ({ pId, exId, des, medName, quantity } = {}, callback) => {
-	var query =
-		"DECLARE @return_status INT; " +
-		"EXEC hospital.Add_Medication " +
-		"@Patient_ID = " +
-		mysql.escape(pId) +
-		"," +
-		"@Exam_ID = " +
-		mysql.escape(exId) +
-		"," +
-		"@Med_Name = " +
-		mysql.escape(medName) +
-		"," +
-		"@Amount = " +
-		mysql.escape(quantity) +
-		"," +
-		"@Description = " +
-		mysql.escape(des) +
-		"," +
-		"@para_out = @return_status OUTPUT;";
-	// console.log(query);
-	queryForObject(query, (err, data) => {
-		callback(data);
-	});
+const queryAddMed = (data, callback) => {
+	fs.readFile(
+		"src/models/sql/queryAddMed.sql",
+		"utf8",
+		(loadFileErr, query) => {
+			if (loadFileErr) {
+				return console.log(loadFileErr);
+			}
+			query = query.replace("&data", data);
+			queryForObject(query, (err, data) => {
+				if (err) {
+					return console.log("ERROR QUERY ADD MEDICATION");
+				}
+				// console.log(data);
+				callback(data);
+			});
+		}
+	);
 };
 
 module.exports = queryAddMed;

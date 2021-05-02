@@ -1,3 +1,5 @@
+const mysql = require("mysql");
+
 const queryAddMed = require("../models/queryAddMed");
 const queryAddExam = require("../models/queryAddExam");
 const queryAddNewPatient = require("../models/queryAddNewPatient");
@@ -7,35 +9,22 @@ const deleteQueue = require("./deleteQueue");
 function addExamMed(data, callback) {
 	queryAddExam(data, (res) => {
 		if (res < 0) {
-			callback(0);
+			console.log("ERROR ADD EXAMINATION");
 			// callback(err, undefined);
 		} else {
 			// console.log(res);
 			if (data.med === undefined) {
 				callback(1);
 			} else {
-				// TODO
-				// Handle better add medication
-				var resp;
-				data.med.forEach((e) => {
-					var medData = {
-						medName: e.medName,
-						pId: data.pId,
-						exId: res,
-						quantity: e.quantity,
-						des: e.des,
-					};
-					queryAddMed(medData, (res) => {
+				convertMedData(data, res, (convertedMedData) => {
+					console.log(convertedMedData);
+					queryAddMed(convertedMedData, (res) => {
 						if (res < 0) {
-							resp = 0;
-						} else {
-							resp = 1;
+							return console.log("ERROR ADD MED");
 						}
-						// console.log(resp);
+						callback(1);
 					});
 				});
-				// console.log(resp);
-				callback(1);
 			}
 		}
 	});
@@ -48,7 +37,7 @@ const addExam = (data, callback) => {
 	if (data.newPatientFlag === "1") {
 		queryAddNewPatient(data, (res) => {
 			if (res < 0) {
-				return callback("ERROR");
+				return callback("ERROR ADD NEW PATIENT");
 			}
 			addExamMed(data, (res) => {
 				if (res > 0) {
@@ -75,5 +64,22 @@ const addExam = (data, callback) => {
 		});
 	}
 };
+
+function convertMedData(data, newExamId, callback) {
+	var convertArray = "";
+	data.med.forEach((m, idx, array) => {
+		convertArray += "(";
+		convertArray += data.pId + ",";
+		convertArray += newExamId + ",";
+		convertArray += mysql.escape(m.medName) + ",";
+		convertArray += mysql.escape(m.des) + ",";
+		convertArray += m.quantity;
+		convertArray += ")";
+		if (idx !== array.length - 1) {
+			convertArray += ",";
+		}
+	});
+	callback(convertArray);
+}
 
 module.exports = addExam;

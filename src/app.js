@@ -184,8 +184,9 @@ app.get("/init-doctor-info", (req, res) => {
 		if (err) {
 			res.send(err);
 		} else {
+			// console.log(data);
 			req.session.docId = data.docId;
-			req.session.hosId = data.hospital[0].hosId;
+			req.session.hosId = data.hosId;
 			res.send(data);
 		}
 	});
