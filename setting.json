@@ -11,17 +11,17 @@
 	],
 
 	"databaseConfig": {
-		"server": "hospitaldb.database.windows.net",
+		"server": "ehealthcarethesis.database.windows.net",
 		"authentication": {
 			"type": "default",
 			"options": {
-				"userName": "JETSON_BOARD",
+				"userName": "WEB_SERVER",
 				"password": "Database_Hospital@123"
 			}
 		},
 		"options": {
 			"encrypt": true,
-			"database": "HospitalDB",
+			"database": "Hospital_DB",
 			"rowCollectionOnDone": true,
 			"rowCollectionOnRequestCompletion": true,
 			"packetSize": 16384
