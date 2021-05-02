@@ -58,7 +58,9 @@ const queryAddNewPatient = (
 	// "'51'";
 	console.log(query);
 	queryForObject(query, (err, data) => {
-		// console.log(data);
+		if (err) {
+			return console.log("ERROR QUERY ADD NEW PATIENT");
+		}
 		callback(data);
 	});
 };

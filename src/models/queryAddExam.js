@@ -31,7 +31,11 @@ const queryAddExam = (
 		" ," +
 		"@para_out = @return_status OUTPUT; ";
 	queryForObject(query, (err, data) => {
+		if (err) {
+			return console.log('ERROR QUERY ADD EXAM');
+		}
 		callback(data);
 	});
+	// callback(1);
 };
 module.exports = queryAddExam;

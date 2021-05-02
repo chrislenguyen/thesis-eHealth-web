@@ -439,8 +439,6 @@ function loadPatientInfo({
 	$("#ssn").val(ssn);
 	$("#phoneNo").val(phoneNo);
 	$("#address").val(address);
-	// $("#lNameModal").val(lname);
-	// $("#fNameModal").val(fname);
 }
 
 function loadSensorInfo({ weight, temper, spo2, height, hPulse, bmi } = {}) {
@@ -468,14 +466,11 @@ function loadExamForm(data) {
 function convertLastName(lname) {
 	var allCapLName = "";
 	lname = [...lname];
-	// console.log(lname);
 	lname.forEach((e) => {
-		// console.log(e);
 		if (e == e.toUpperCase() && e != " ") {
 			allCapLName += e;
 		}
 	});
-	// console.log(allCapLName);
 	return allCapLName;
 }
 
