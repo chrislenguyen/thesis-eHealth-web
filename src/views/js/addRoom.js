@@ -56,6 +56,7 @@ $("#btnAddRoomModal").click(function (e) {
 								appendRoomTable(room);
 							});
 							$("#addSuccessDialog").show();
+							return $("#addRoomModal").modal("hide");
 						},
 					});
 				}

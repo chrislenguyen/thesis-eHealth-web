@@ -79,6 +79,9 @@
                 <label class="btn btn-outline-dark">
                     <input type="radio" name="options" id="optDept" value="4"> Department
                 </label>
+                <label class="btn btn-outline-dark">
+                    <input type="radio" name="options" id="optExRoom" value="4"> Exam Room
+                </label>
             </div>
         </div>
 
@@ -152,10 +155,25 @@
         <div class="row justify-content-center extOptionBar" id="optDeptExt" style="display: none;">
             <div class="btn-group btn-group-toggle" data-toggle="buttons" style="padding-top: 20px;">
                 <label class="btn btn-outline-dark">
-                    <input type="radio" name="options" id="addDept" value="1"> Add Dept
+                    <input type="radio" name="options" id="addDept" value="1"> Add Department
                 </label>
                 <label class="btn btn-outline-dark">
-                    <input type="radio" name="options" id="modDept" value="2"> Modify Dept
+                    <input type="radio" name="options" id="modDept" value="2"> Modify Department
+                </label>
+            </div>
+        </div>
+
+        <form id="addDepartmentForm" style="display: none;" class="p-5 mb-2 bg-white text-dark">
+            {{> managePage/addDepartment}}
+        </form>
+
+        <div class="row justify-content-center extOptionBar" id="optExRoomExt" style="display: none;">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons" style="padding-top: 20px;">
+                <label class="btn btn-outline-dark">
+                    <input type="radio" name="options" id="addDept" value="1"> Assign Doctor
+                </label>
+                <label class="btn btn-outline-dark">
+                    <input type="radio" name="options" id="modDept" value="2"> Modify Exam Room
                 </label>
             </div>
         </div>

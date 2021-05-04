@@ -19,6 +19,8 @@ const addHospital = require("./controllers/addHospital");
 const addBuilding = require("./controllers/addBuilding");
 const getRoom = require("./controllers/getRoom");
 const addRoom = require("./controllers/addRoom");
+const getDepartment = require("./controllers/getDepartment");
+const addDepartment = require("./controllers/addDepartment");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -122,6 +124,12 @@ app.post("/add-room", (req, res) => {
 	});
 });
 
+app.post("/add-department", (req, res) => {
+	addDepartment(req.body, (status) => {
+		res.send({ status });
+	});
+});
+
 app.post("/del-building", (req, res) => {
 	console.log(req.body);
 });
@@ -130,6 +138,15 @@ app.post("/get-room-info", (req, res) => {
 	getRoom(req.body, (err, data) => {
 		if (err) {
 			return console.log("ERROR GET ROOM INFO");
+		}
+		res.send(data);
+	});
+});
+
+app.post("/get-department-info", (req, res) => {
+	getDepartment(req.body, (err, data) => {
+		if (err) {
+			return console.log("ERROR GET DEPARTMENT INFO");
 		}
 		res.send(data);
 	});

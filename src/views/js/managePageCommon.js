@@ -97,7 +97,9 @@ $("#addBuilding").click(function (e) {
 
 $("#addDept").click(function (e) {
 	e.preventDefault();
-	$("#addDeptForm").show();
+	$("#addDepartmentForm").show(NO_ANIMATION, () => {
+		loadHospitalBuildingSelect();
+	});
 });
 
 $("#addRoom").click(function (e) {

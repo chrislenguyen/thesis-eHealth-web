@@ -1,0 +1,60 @@
+<div class="row form-group">
+    <label for="hosListAddDepartmentForm" class="container">Hospital</label>
+    <select class="container custom-select" name="hosBuildingList" id="hosListAddDepartmentForm" required>
+        <option></option>
+    </select>
+</div>
+
+<div class="row justify-content-center form-group">
+    <table class="table table-striped table-dark form-group " id="departmentTable">
+        <thead>
+            <tr>
+                <th scope="col" style="width: 90%;">Department Name</th>
+                <th scope="col" style="width: 10%;">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-outline-dark" id="btnAddDepartment" data-toggle="modal"
+        data-target="#addDepartmentModal" disabled><i class="bi bi-plus"></i></button>
+</div>
+
+<script type="text/html" id="tmplDepartmentTableRow">
+    <tr>
+        <td class="deptName">
+            <textarea maxlength="2" rows="1" style="resize: none; border: none;
+            width: 100%; box-sizing: border-box; background: none; color: white;" data-content="departmentName" readonly></textarea>
+        </td>
+        <td hidden data-content="departmentId"></td>
+        <td>
+            <button type="button" class="btn btn-danger btnDelDepartment" data-content='tableButton'><i class="bi bi-trash-fill"></i></button>
+        </td>
+    </tr>
+</script>
+
+<div class="modal fade" id="addDepartmentModal" tabindex="-1" aria-labelledby="addDepartmentModal" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addDepartmentModal">Add Department</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="departmentCdModal" class="col-form-label">Department Name:</label>
+                        <input type="text" maxlength="100" class="form-control" id="departmentNameModal">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" id="btnAddDepartmentModal">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="./js/addDepartment.js"></script>

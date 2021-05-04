@@ -1,6 +1,3 @@
-var changeFlag = false;
-var changeBuilding = [];
-
 $("#addBuildingModal").on("hidden.bs.modal", function () {
 	$(":input", this).val("");
 });
@@ -35,7 +32,6 @@ $("#btnAddBuildingModal").click(function (e) {
 			},
 			dataType: "json",
 			success: function (res) {
-				console.log(res);
 				if (res.status == 1) {
 					$.ajax({
 						type: "get",
@@ -57,11 +53,6 @@ $("#btnAddBuildingModal").click(function (e) {
 		//TODO
 		//Handle no input
 	}
-});
-
-$("textarea").focus(function (e) {
-	e.preventDefault();
-	console.log($(".myTd").text());
 });
 
 function clearBuildingTable() {
