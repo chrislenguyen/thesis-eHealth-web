@@ -302,6 +302,12 @@ app.post("/delete-absent-patient", (req, res) => {
 	}
 });
 
+app.get("*", (req, res) => {
+	res.render("error", {
+		title: "Error",
+	});
+});
+
 app.listen(port, () => {
 	console.log("Server started, port " + port);
 });
