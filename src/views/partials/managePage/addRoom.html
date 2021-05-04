@@ -1,0 +1,74 @@
+<div class="row align-items-center justify-content-center form-group">
+    <div class="col col-1">
+    </div>
+    <div class="col col-10">
+        <div class="row align-items-center justify-content-center form-group">
+            <label for="hosListAddDevForm" class="col col-2" style="margin: 0;">Hospital</label>
+            <select class="col col-3 custom-select" name="hosBuildingList" id="hosIdAddRoomForm" required>
+                <option></option>
+            </select>
+
+            <div class="col col-1"></div>
+
+            <label for="buildingListAddDevForm" class="col col-2" style="margin: 0;">Building</label>
+            <select class="col col-3 custom-select" name="buildingListDevForm" id="buildingCodeAddRoomForm" required>
+                <option></option>
+            </select>
+        </div>
+    </div>
+    <div class="col col-1">
+    </div>
+</div>
+
+<div class="row justify-content-center form-group px-5">
+    <table class="table table-striped table-dark form-group" id="roomTable">
+        <thead>
+            <tr>
+                <th scope="col" style="width: 90%;">Room Code</th>
+                <th scope="col" style="width: 10%;">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <button type="button" class="btn btn-outline-dark" id="btnAddRoom" data-toggle="modal"
+        data-target="#addRoomModal" disabled><i class="bi bi-plus"></i></button>
+</div>
+
+<script type="text/html" id="tmplRoomTableRow">
+    <tr>
+        <td>
+            <textarea maxlength="3" rows="1" style="resize: none; border: none;
+            width: 100%; box-sizing: border-box; background: none; color: white;" data-content="roomCd" readonly></textarea>
+        </td>
+        <td>
+            <button type="button" class="btn btn-danger btnDelRoom" data-content='tableButton'><i class="bi bi-trash-fill"></i></button>
+        </td>
+    </tr>
+</script>
+
+<div class="modal fade" id="addRoomModal" tabindex="-1" aria-labelledby="addRoomModal" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addRoomModal">Add Room</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="roomCdModal" class="col-form-label">Room Code:</label>
+                        <input type="text" maxlength="3" class="form-control" id="roomCdModal">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark" id="btnAddRoomModal">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="./js/addRoom.js"></script>

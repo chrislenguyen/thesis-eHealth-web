@@ -15,6 +15,11 @@ $(".optionBar input").click(function (e) {
 	hideAllForm();
 });
 
+$(".extOptionBar input").click(function (e) {
+	e.preventDefault();
+	hideAllForm();
+});
+
 $("#optUser").click(function (e) {
 	e.preventDefault();
 	$("#optUserExt").show();
@@ -72,6 +77,11 @@ $("#optRoom").click(function (e) {
 	$("#optRoomExt").show();
 });
 
+$("#optExRoom").click(function (e) {
+	e.preventDefault();
+	$("#optExRoomExt").show();
+});
+
 $("#addHos").click(function (e) {
 	e.preventDefault();
 	$("#addHosForm").show();
@@ -80,18 +90,21 @@ $("#addHos").click(function (e) {
 $("#addBuilding").click(function (e) {
 	e.preventDefault();
 	$("#addBuildingForm").show(NO_ANIMATION, () => {
+		clearBuildingTable();
 		loadHospitalBuildingSelect();
 	});
 });
 
 $("#addDept").click(function (e) {
 	e.preventDefault();
-	$("#").show();
+	$("#addDeptForm").show();
 });
 
 $("#addRoom").click(function (e) {
 	e.preventDefault();
-	$("#").show();
+	$("#addRoomForm").show(NO_ANIMATION, () => {
+		loadHospitalBuildingSelect();
+	});
 });
 
 $("#addDevice").click(function (e) {
@@ -110,11 +123,6 @@ $("#modDevice").click(function (e) {
 
 $("#updateDevice").click(function (e) {
 	e.preventDefault();
-});
-
-$("#btnSearchModDocForm").click(function (e) {
-	e.preventDefault();
-	$("#modDocInfoForm").show();
 });
 
 $('select[name="hosBuildingList"]').on("change", function () {

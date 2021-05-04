@@ -1,0 +1,7 @@
+DECLARE @ROOM AS ROOM_TYPE
+INSERT INTO
+    @ROOM
+VALUES
+    &data;
+
+EXEC hospital.ADD_ROOM @ROOM

@@ -17,6 +17,8 @@ const addDevice = require("./controllers/addDevice");
 const getExamHistory = require("./controllers/getExamHistory");
 const addHospital = require("./controllers/addHospital");
 const addBuilding = require("./controllers/addBuilding");
+const getRoom = require("./controllers/getRoom");
+const addRoom = require("./controllers/addRoom");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -114,8 +116,23 @@ app.post("/add-building", (req, res) => {
 	});
 });
 
+app.post("/add-room", (req, res) => {
+	addRoom(req.body, (status) => {
+		res.send({ status });
+	});
+});
+
 app.post("/del-building", (req, res) => {
 	console.log(req.body);
+});
+
+app.post("/get-room-info", (req, res) => {
+	getRoom(req.body, (err, data) => {
+		if (err) {
+			return console.log("ERROR GET ROOM INFO");
+		}
+		res.send(data);
+	});
 });
 
 app.get("", (req, res) => {
