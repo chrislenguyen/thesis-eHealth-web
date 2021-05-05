@@ -13,7 +13,10 @@ $("#submitBtn").on("click", function () {
 		data: data,
 		dataType: "json",
 		success: function (res) {
-			// console.log(res);
+			if (res.status == 1) {
+				$("#addDoctorForm input, select").val("");
+				$("#addSuccessDialog").show();
+			}
 		},
 	});
 });

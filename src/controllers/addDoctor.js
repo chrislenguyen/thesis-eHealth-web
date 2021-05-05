@@ -1,14 +1,12 @@
-const queryAddDoctor = require('../models/queryAddDoctor')
+const queryAddDoctor = require("../models/queryAddDoctor");
 
 const addDoctor = (data, callback) => {
-    queryAddDoctor(data, (err, data) => {
-        if (err) {
-            callback(err, undefined)
-        } else {
-            // console.log(data);
-            // callback(undefined, )
-        }
-    })
-}
+	queryAddDoctor(data, (data) => {
+		if (data < 0) {
+			return console.log("ERROR ADD DOCTOR");
+		}
+		callback(1);
+	});
+};
 
-module.exports = addDoctor
+module.exports = addDoctor;

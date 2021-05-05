@@ -93,8 +93,8 @@ app.post("/login-data", (req, res) => {
 });
 
 app.post("/add-doctor", (req, res) => {
-	addDoctor(req.body, (err, res) => {
-		// res.send(res);
+	addDoctor(req.body, (status) => {
+		res.send({ status });
 	});
 });
 

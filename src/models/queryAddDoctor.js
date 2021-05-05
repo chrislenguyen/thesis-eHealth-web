@@ -1,23 +1,28 @@
 const queryForObject = require("./queryForObject");
 const mysql = require("mysql");
+const md5 = require("md5");
 
 const queryAddDoctor = (data, callback) => {
 	const query =
-		"EXECUTE hospital.Add_Doctor" +
+		"EXECUTE hospital.Add_Doctor " +
+		"N" +
 		mysql.escape(data.fName) +
 		"," +
+		"N" +
 		mysql.escape(data.lName) +
 		"," +
 		mysql.escape(data.birthDate) +
 		"," +
 		mysql.escape(data.gender) +
 		"," +
+		"N" +
 		mysql.escape(data.addr) +
 		"," +
 		mysql.escape(data.phone) +
 		"," +
 		mysql.escape(data.ssn) +
 		"," +
+		"N" +
 		mysql.escape(data.spec) +
 		"," +
 		mysql.escape(data.gradTime) +
@@ -26,21 +31,19 @@ const queryAddDoctor = (data, callback) => {
 		"," +
 		mysql.escape(data.username) +
 		"," +
-		mysql.escape(data.password) +
+		mysql.escape(md5(data.password)) +
 		"," +
 		mysql.escape(data.email) +
 		"," +
 		mysql.escape(data.hos) +
 		"," +
 		mysql.escape(data.dep) +
-		"," +
-		1;
+		",1";
 	queryForObject(query, (err, data) => {
-		if (data < 0) {
-			console.log("error");
-		} else {
-			console.log("success");
+		if (err) {
+			return console.log("ERROR QUERY ADD DOCTOR");
 		}
+		callback(data);
 	});
 };
 
