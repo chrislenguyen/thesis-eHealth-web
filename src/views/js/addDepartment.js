@@ -8,7 +8,7 @@ $("#hosListAddDepartmentForm").on("change", function () {
 		$("#addDepartmentForm .btn").prop("disabled", false);
 		$.ajax({
 			type: "post",
-			url: "get-department-info",
+			url: "/get-department-info",
 			data: { hosId: this.value },
 			dataType: "json",
 			success: function (response) {

@@ -1,0 +1,43 @@
+<div class="row justify-content-center form-group px-5">
+    <div class="table-responsive">
+        <table class="table table-striped table-dark form-group" id="deviceStatusTable">
+            <thead>
+                <tr>
+                    <th style="width: 10%; text-align: center;">Device ID</th>
+                    <th style="width: 30%; text-align: center;">Device Code</th>
+                    <th style="width: 40%; text-align: center;">Hospital</th>
+                    <th style="width: 10%; text-align: center;">Building</th>
+                    <th style="width: 10%; text-align: center;">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script type="text/html" id="tmplDeviceStatusTableRow">
+    <tr>
+        <td>
+            <textarea rows="1" style="text-align: center; resize: none; border: none;
+            width: 100%; box-sizing: border-box; background: none; color: white;" data-content="deviceId" readonly></textarea>
+        </td>
+        <td>
+            <textarea rows="1" style="text-align: center; resize: none; border: none;
+            width: 100%; box-sizing: border-box; background: none; color: white;" data-content="deviceCd" readonly></textarea>
+        </td>
+        <td>
+            <textarea rows="1" style="text-align: center; resize: none; border: none;
+            width: 100%; box-sizing: border-box; background: none; color: white;" data-content="hosName" readonly></textarea>
+        </td>
+        <td>
+            <textarea rows="1" style="text-align: center; resize: none; border: none;
+            width: 100%; box-sizing: border-box; background: none; color: white;" data-content="bCd" readonly></textarea>
+        </td>
+        <td style="text-align: center;" data-content="validFlag">
+           
+        </td>
+    </tr>
+</script>
+
+<script src="./js/viewDeviceStatus.js"></script>

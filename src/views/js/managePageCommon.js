@@ -7,17 +7,20 @@ $(".optTop input").click(function (e) {
 	hideAllOption();
 	hideAllExtOption();
 	hideAllForm();
+	clearTable();
 });
 
 $(".optionBar input").click(function (e) {
 	e.preventDefault();
 	hideAllExtOption();
 	hideAllForm();
+	clearTable();
 });
 
 $(".extOptionBar input").click(function (e) {
 	e.preventDefault();
 	hideAllForm();
+	clearTable();
 });
 
 $("#optUser").click(function (e) {
@@ -90,7 +93,6 @@ $("#addHos").click(function (e) {
 $("#addBuilding").click(function (e) {
 	e.preventDefault();
 	$("#addBuildingForm").show(NO_ANIMATION, () => {
-		clearBuildingTable();
 		loadHospitalBuildingSelect();
 	});
 });
@@ -123,8 +125,18 @@ $("#modDevice").click(function (e) {
 	});
 });
 
-$("#updateDevice").click(function (e) {
+$("#viewDeviceStatus").click(function (e) {
 	e.preventDefault();
+	$("#viewDeviceStatusForm").show(NO_ANIMATION, () => {
+		loadDeviceStatusTable();
+	});
+});
+
+$("#assignDoctor").click(function (e) {
+	e.preventDefault();
+	$("#assignDoctorForm").show(NO_ANIMATION, () => {
+		loadHospitalDepartmentSelect();
+	});
 });
 
 $('select[name="hosBuildingList"]').on("change", function () {
@@ -205,6 +217,10 @@ function loadHospitalDepartmentSelect() {
 			});
 		},
 	});
+}
+
+function clearTable() {
+	$("table tbody").empty();
 }
 
 // function debug() {

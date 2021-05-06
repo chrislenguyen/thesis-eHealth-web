@@ -94,7 +94,7 @@
                     <input type="radio" name="options" id="modDevice" value="2"> Modify Device
                 </label>
                 <label class="btn btn-outline-dark">
-                    <input type="radio" name="options" id="updateDevice" value="3"> Update Device Info To EventHub
+                    <input type="radio" name="options" id="viewDeviceStatus" value="3"> View Devices Status
                 </label>
             </div>
         </div>
@@ -105,6 +105,10 @@
 
         <form id="modDeviceForm" style="display: none;" class="p-5 mb-2 bg-white text-dark">
             {{> managePage/deviceModifySec}}
+        </form>
+
+        <form id="viewDeviceStatusForm" style="display: none;" class="pt-5 mb-2 bg-white text-dark">
+            {{> managePage/viewDeviceStatus}}
         </form>
 
         <div class="row justify-content-center extOptionBar" id="optHExt" style="display: none;">
@@ -170,13 +174,17 @@
         <div class="row justify-content-center extOptionBar" id="optExRoomExt" style="display: none;">
             <div class="btn-group btn-group-toggle" data-toggle="buttons" style="padding-top: 20px;">
                 <label class="btn btn-outline-dark">
-                    <input type="radio" name="options" id="addDept" value="1"> Assign Doctor
+                    <input type="radio" name="options" id="assignDoctor" value="1"> Assign Doctor
                 </label>
                 <label class="btn btn-outline-dark">
-                    <input type="radio" name="options" id="modDept" value="2"> Modify Exam Room
+                    <input type="radio" name="options" id="modExamRoom" value="2"> Modify Exam Room
                 </label>
             </div>
         </div>
+
+        <form id="assignDoctorForm" style="display: none;" class="p-5 mb-2 bg-white text-dark">
+            {{> managePage/assignDoctor}}
+        </form>
 
         <div class="alert alert-success" role="alert" id="addSuccessDialog" style="display: none;">
             Add successfully!

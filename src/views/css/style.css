@@ -20,3 +20,13 @@ html {
 .custom-input:focus-visible {
 	outline: none;
 }
+
+.active {
+	font-size: 20px;
+	color: green;
+}
+
+.inactive {
+	font-size: 20px;
+	color: red;
+}

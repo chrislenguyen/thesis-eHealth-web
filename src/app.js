@@ -21,6 +21,10 @@ const getRoom = require("./controllers/getRoom");
 const addRoom = require("./controllers/addRoom");
 const getDepartment = require("./controllers/getDepartment");
 const addDepartment = require("./controllers/addDepartment");
+const getDeviceStatus = require("./controllers/getDeviceStatus");
+const getDoctorRoom = require("./controllers/getDoctorRoom");
+const getUnassignedRoom = require("./controllers/getUnassignedRoom");
+const assignDoctor = require("./controllers/assignDoctor");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -143,12 +147,45 @@ app.post("/get-room-info", (req, res) => {
 	});
 });
 
+app.post("/get-doctor-room-info", (req, res) => {
+	getDoctorRoom(req.body, (err, data) => {
+		if (err) {
+			return console.log("ERROR GET DOCTOR ROOM INFO");
+		}
+		res.send(data);
+	});
+});
+
 app.post("/get-department-info", (req, res) => {
 	getDepartment(req.body, (err, data) => {
 		if (err) {
 			return console.log("ERROR GET DEPARTMENT INFO");
 		}
 		res.send(data);
+	});
+});
+
+app.post("/get-device-status", (req, res) => {
+	getDeviceStatus((err, data) => {
+		if (err) {
+			return console.log("ERROR GET DEVICE STATUS");
+		}
+		res.send(data);
+	});
+});
+
+app.post("/get-unassigned-room", (req, res) => {
+	getUnassignedRoom(req.body, (err, data) => {
+		if (err) {
+			return console.log("ERROR GET UNASSIGNED ROOM");
+		}
+		res.send(data);
+	});
+});
+
+app.post("/assign-doctor-room", (req, res) => {
+	assignDoctor(req.body, (status) => {
+		res.send({ status });
 	});
 });
 
