@@ -56,10 +56,12 @@ const queryAddNewPatient = (
 				fname.toLowerCase() +
 				lname.toLowerCase() +
 				dob.toString().substr(2, 2)
-			).replace(/\s/g, "").normalize("NFD")
-			.replace(/[\u0300-\u036f]/g, "")
-			.replace(/đ/g, "d")
-			.replace(/Đ/g, "D") + "@gmail.com"
+			)
+				.replace(/\s/g, "")
+				.normalize("NFD")
+				.replace(/[\u0300-\u036f]/g, "")
+				.replace(/đ/g, "d")
+				.replace(/Đ/g, "D") + "@gmail.com"
 		) +
 		"," +
 		"@para_out = @return_status OUTPUT";
