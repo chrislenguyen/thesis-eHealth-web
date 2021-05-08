@@ -15,8 +15,6 @@
                             style="border: none; box-shadow: none; resize: none; background-color: white; text-align: left;">First name</textarea>
                         <input class="col col-3" id="fNameModal" class="form-control remove-target" type="text">
 
-                        {{!-- <div class="col col-1"></div> --}}
-
                         <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true"
                             aria-label="With textarea"
                             style="border: none; box-shadow: none; resize: none; background-color: white; text-align: right;">Last name</textarea>
@@ -42,14 +40,16 @@
                         <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true"
                             aria-label="With textarea"
                             style="border: none; box-shadow: none; resize: none; background-color: white;">CMND</textarea>
-                        <input class="col col-3" id="ssnModal" class="form-control remove-target" type="number">
+                        <input class="col col-3" id="ssnModal" class="form-control remove-target" maxlength="12"
+                            type="text">
 
                         <div class="col col-1"></div>
 
                         <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true"
                             aria-label="With textarea"
                             style="border: none; box-shadow: none; resize: none; background-color: white; text-align: left;">Phone</textarea>
-                        <input class="col col-3" id="phoneNoModal" class="form-control remove-target" type="number">
+                        <input class="col col-3" id="phoneNoModal" class="form-control remove-target" maxlength="11"
+                            type="text">
                     </div>
                     <div class="row form-group">
                         <textarea class="col col-2 form-control text-dark" rows="1" readOnly="true"

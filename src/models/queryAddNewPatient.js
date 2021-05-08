@@ -12,10 +12,10 @@ const queryAddNewPatient = (
 		"@Patient_ID = " +
 		mysql.escape(pId) +
 		" ," +
-		"@First_Name =" +
+		"@First_Name = N" +
 		mysql.escape(fname) +
 		"," +
-		"@Last_Name =" +
+		"@Last_Name = N" +
 		mysql.escape(lname) +
 		"," +
 		"@Date_Of_Birth =" +
@@ -24,7 +24,7 @@ const queryAddNewPatient = (
 		"@Gender =" +
 		mysql.escape(gender) +
 		"," +
-		"@Address =" +
+		"@Address = N" +
 		mysql.escape(address) +
 		"," +
 		"@Phone_Number =" +
@@ -34,13 +34,18 @@ const queryAddNewPatient = (
 		mysql.escape(ssn) +
 		"," +
 		"@User_Name =" +
-		mysql.escape(
-			(
-				fname.toLowerCase() +
-				lname.toLowerCase() +
-				dob.toString().substr(2, 2)
-			).replace(/\s/g, "")
-		) +
+		mysql
+			.escape(
+				(
+					fname.toLowerCase() +
+					lname.toLowerCase() +
+					dob.toString().substr(2, 2)
+				).replace(/\s/g, "")
+			)
+			.normalize("NFD")
+			.replace(/[\u0300-\u036f]/g, "")
+			.replace(/đ/g, "d")
+			.replace(/Đ/g, "D") +
 		"," +
 		"@Password = " +
 		mysql.escape(md5(lname)) +
@@ -51,12 +56,15 @@ const queryAddNewPatient = (
 				fname.toLowerCase() +
 				lname.toLowerCase() +
 				dob.toString().substr(2, 2)
-			).replace(/\s/g, "") + "@gmail.com"
+			).replace(/\s/g, "").normalize("NFD")
+			.replace(/[\u0300-\u036f]/g, "")
+			.replace(/đ/g, "d")
+			.replace(/Đ/g, "D") + "@gmail.com"
 		) +
 		"," +
 		"@para_out = @return_status OUTPUT";
 	// "'51'";
-	console.log(query);
+	// console.log(query);
 	queryForObject(query, (err, data) => {
 		if (err) {
 			return console.log("ERROR QUERY ADD NEW PATIENT");

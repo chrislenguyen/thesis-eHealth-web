@@ -72,7 +72,7 @@ function convertMedData(data, newExamId, callback) {
 		convertArray += data.pId + ",";
 		convertArray += newExamId + ",";
 		convertArray += mysql.escape(m.medName) + ",";
-		convertArray += mysql.escape(m.des) + ",";
+		convertArray += "N" + mysql.escape(m.des) + ",";
 		convertArray += m.quantity;
 		convertArray += ")";
 		if (idx !== array.length - 1) {

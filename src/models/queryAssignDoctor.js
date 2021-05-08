@@ -13,7 +13,6 @@ const queryAssignDoctor = ({ bCd, roomCd, doctorId }, callback) => {
 			query = query.replace("&bCd", mysql.escape(bCd));
 			query = query.replace("&roomCd", mysql.escape(roomCd));
 			query = query.replace("&doctorId", mysql.escape(doctorId));
-			console.log(query);
 			queryForObject(query, (err, data) => {
 				if (err) {
 					return console.log("ERROR QUERY ASSIGN DOCTOR");
