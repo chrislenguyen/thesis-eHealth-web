@@ -9,7 +9,6 @@
 			"screen": "manage"
 		}
 	],
-
 	"databaseConfig": {
 		"server": "ehealthcarethesis.database.windows.net",
 		"authentication": {
@@ -26,5 +25,14 @@
 			"rowCollectionOnRequestCompletion": true,
 			"packetSize": 16384
 		}
-	}
+	},
+	"eventHub": {
+		"deviceId": "Web_Server",
+		"eventHubConnection": "Endpoint=sb://thesisehealthcare.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=AUeMD+PSZx675wFA4kPllGfSnMwhATPOGPPDWex5jSU=",
+		"eventHubName": "receivemsg",
+		"requestType": "6",
+		"requestId": "123",
+		"partitionId": "0"
+	},
+	"iotHubString": "HostName=thesisehealthcare.azure-devices.net;SharedAccessKeyName=serverRight;SharedAccessKey=ljbaoEH304RNLuxtNC6a/TIbQ7NKbh7OfsQ5RKfbx7M="
 }

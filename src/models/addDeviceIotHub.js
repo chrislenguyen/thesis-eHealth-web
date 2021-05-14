@@ -1,7 +1,8 @@
 var Registry = require("azure-iothub").Registry;
+const IOT_HUB_CONNECTION_STRING = require("../../setting.json").iotHubString;
 
-const IOT_HUB_CONNECTION_STRING =
-	"HostName=thesisehealthcare.azure-devices.net;SharedAccessKeyName=serverRight;SharedAccessKey=ljbaoEH304RNLuxtNC6a/TIbQ7NKbh7OfsQ5RKfbx7M=";
+// const IOT_HUB_CONNECTION_STRING =
+// 	"HostName=thesisehealthcare.azure-devices.net;SharedAccessKeyName=serverRight;SharedAccessKey=ljbaoEH304RNLuxtNC6a/TIbQ7NKbh7OfsQ5RKfbx7M=";
 
 var registry = Registry.fromConnectionString(IOT_HUB_CONNECTION_STRING);
 

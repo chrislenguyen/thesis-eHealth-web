@@ -1,23 +1,21 @@
 // const { BlobServiceClient, ContainerClient } = require("@azure/storage-blob");
 const { EventData, EventHubProducerClient } = require("@azure/event-hubs");
-
-const DEVICE_ID = "Web_Server";
-const EVENT_HUB_CONNECTION =
-	"Endpoint=sb://thesisehealthcare.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=AUeMD+PSZx675wFA4kPllGfSnMwhATPOGPPDWex5jSU=";
-const EVENT_HUB_NAME = "receivemsg";
+const eventHub = require("../../setting.json").eventHub;
 
 const producer = new EventHubProducerClient(
-	EVENT_HUB_CONNECTION,
-	EVENT_HUB_NAME
+	eventHub.eventHubConnection,
+	eventHub.eventHubName
 );
 
 async function triggerEvHubPatient(userId) {
-	const batch = await producer.createBatch();
+	const batch = await producer.createBatch({
+		partitionId: eventHub.partitionId,
+	});
 	const msg = {
-		type_request: "6",
-		device_ID: DEVICE_ID,
-		user_id: userId.toString(),
-		request_id: "123"
+		type_request: eventHub.requestType,
+		device_ID: eventHub.deviceId,
+		patient_ID: userId.toString(),
+		request_id: eventHub.requestId,
 	};
 	batch.tryAdd({ properties: msg, body: "" });
 
