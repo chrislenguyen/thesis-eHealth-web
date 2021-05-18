@@ -7,15 +7,15 @@ const producer = new EventHubProducerClient(
 	eventHub.eventHubName
 );
 
-async function triggerEvHubPatient(userId) {
+async function triggerEvHubUpdateExRoom(hosId) {
 	const batch = await producer.createBatch({
 		partitionId: eventHub.partitionId,
 	});
 	const msg = {
-		type_request: eventHub.patientRequestType,
+		type_request: eventHub.exRoomRequestType,
 		device_ID: eventHub.deviceId,
-		patient_ID: userId.toString(),
-		request_id: eventHub.patientRequestId,
+		hospital_ID: hosId.toString(),
+		request_id: eventHub.exRoomRequestId,
 	};
 	batch.tryAdd({ properties: msg, body: "" });
 
@@ -28,4 +28,4 @@ async function triggerEvHubPatient(userId) {
 	// console.log("A batch of three events have been sent to the event hub");
 }
 
-module.exports = triggerEvHubPatient;
+module.exports = triggerEvHubUpdateExRoom;
