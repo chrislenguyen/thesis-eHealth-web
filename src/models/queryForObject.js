@@ -16,12 +16,16 @@ const queryForObject = (queryStatement, callback) => {
 		connection.close();
 	});
 
+	connection.on("end", () => connection.close());
+
 	connection.connect();
 	function executeStatement(query) {
 		let request = new Request(query, function (err, rowCount, rows) {
 			if (err) {
+				connection.close()
 				return callback(err, undefined);
 			} else {
+				connection.close()
 				// console.log(rowCount);
 				var data = "";
 				rows.forEach((e) => {
