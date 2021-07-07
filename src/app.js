@@ -285,6 +285,27 @@ app.post("/get-patient-info", (req, res) => {
 			// console.log(data);
 
 			if (data !== undefined) {
+				if (data[0].validFlag == 1) {
+					adaStr =
+						data[0].orderNo +
+						"-" +
+						buildingCd +
+						"-" +
+						roomCd +
+						"-" +
+						data[0].phoneNo;
+					fetch(
+						"https://io.adafruit.com/api/v2/khuonglna99/feeds/sms.queueinfo/data",
+						{
+							method: "post",
+							body: '{"value": "' + adaStr + '"}',
+							headers: {
+								"X-AIO-Key": "aio_qrEw29oUIvN4ch3VeiOQJzGgiwdz",
+								"Content-Type": "application/json",
+							},
+						}
+					);
+				}
 				// console.log(data[0]);
 				req.session.pId = data[0].pId;
 				req.session.sId = data[0].sId;

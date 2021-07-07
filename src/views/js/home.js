@@ -9,6 +9,22 @@ var yyyy = today.getFullYear();
 
 // Set scrolling for queue and form
 
+setInterval(() => {
+	if ($("#btnReloadQueue").is(":visible")) {
+		getPatientInfo(data, (patientInfo) => {
+			console.log("HERE GO");
+			if (patientInfo.noDataFlag) {
+				$("#rightExamForm *").prop("disabled", true);
+				$("#btnReloadQueue").show();
+			} else {
+				$("#rightExamForm *").prop("disabled", false);
+				loadQueue(patientInfo);
+				loadExamForm(patientInfo[0]);
+			}
+		});
+	}
+}, 3000);
+
 $("#leftCol").css(
 	"min-height",
 	$("#outLeftCol").innerHeight() -
