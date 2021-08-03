@@ -300,7 +300,7 @@ app.post("/get-patient-info", (req, res) => {
 							method: "post",
 							body: '{"value": "' + adaStr + '"}',
 							headers: {
-								"X-AIO-Key": "aio_qrEw29oUIvN4ch3VeiOQJzGgiwdz",
+								"X-AIO-Key": "aio_XtZP7474E6874RtiSs3LktqI2NsS",
 								"Content-Type": "application/json",
 							},
 						}
