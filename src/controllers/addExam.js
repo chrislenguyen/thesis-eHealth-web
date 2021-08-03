@@ -45,7 +45,7 @@ const addExam = (data, callback) => {
 						if (res < 0) {
 							return console.log("ERROR DELETE QUEUE");
 						}
-						triggerEvHubPatient(data.pId);
+						triggerEvHubPatient(data.pId, data.hosId);
 						callback(1);
 					});
 				}
