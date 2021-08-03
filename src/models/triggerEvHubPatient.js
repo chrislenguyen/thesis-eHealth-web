@@ -7,7 +7,7 @@ const producer = new EventHubProducerClient(
 	eventHub.eventHubName
 );
 
-async function triggerEvHubPatient(userId) {
+async function triggerEvHubPatient(userId, hospitalId) {
 	const batch = await producer.createBatch({
 		partitionId: eventHub.partitionId,
 	});
@@ -15,6 +15,7 @@ async function triggerEvHubPatient(userId) {
 		type_request: eventHub.patientRequestType,
 		device_ID: eventHub.deviceId,
 		patient_ID: userId.toString(),
+		hospital_id: hospitalId.toString(),
 		request_id: eventHub.patientRequestId,
 	};
 	batch.tryAdd({ properties: msg, body: "" });

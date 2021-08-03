@@ -28,7 +28,7 @@
 	},
 	"eventHub": {
 		"deviceId": "Web_Server",
-		"eventHubConnection": "Endpoint=sb://thesisehealthcare.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=AUeMD+PSZx675wFA4kPllGfSnMwhATPOGPPDWex5jSU=",
+		"eventHubConnection": "Endpoint=sb://thesisehealthcare.servicebus.windows.net/;SharedAccessKeyName=ServerRight;SharedAccessKey=ZQNrKZNfvJjRuqbqOHcot1wSW0lRlskz7QryL7+pVi8=",
 		"eventHubName": "receivemsg",
 		"patientRequestType": "6",
 		"exRoomRequestType": "9",
@@ -36,5 +36,10 @@
 		"exRoomRequestId": "hsds",
 		"partitionId": "0"
 	},
-	"iotHubString": "HostName=thesisehealthcare.azure-devices.net;SharedAccessKeyName=serverRight;SharedAccessKey=ljbaoEH304RNLuxtNC6a/TIbQ7NKbh7OfsQ5RKfbx7M="
+	"iotHubString": "HostName=thesisehealthcare.azure-devices.net;SharedAccessKeyName=serverRight;SharedAccessKey=ljbaoEH304RNLuxtNC6a/TIbQ7NKbh7OfsQ5RKfbx7M=",
+	"AdafruitIO": {
+		"X-AIO-KEY": "aio_qrEw29oUIvN4ch3VeiOQJzGgiwdz",
+		"username": "khuonglna99",
+		"feed_key": "sms.queueinfo"
+	}
 }
