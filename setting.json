@@ -38,7 +38,7 @@
 	},
 	"iotHubString": "HostName=thesisehealthcare.azure-devices.net;SharedAccessKeyName=serverRight;SharedAccessKey=ljbaoEH304RNLuxtNC6a/TIbQ7NKbh7OfsQ5RKfbx7M=",
 	"AdafruitIO": {
-		"X-AIO-KEY": "aio_qrEw29oUIvN4ch3VeiOQJzGgiwdz",
+		"X-AIO-KEY": "aio_MqmP70l9o7Zv9uu23OFjBksUEw2r",
 		"username": "khuonglna99",
 		"feed_key": "sms.queueinfo"
 	}
